@@ -24,7 +24,7 @@ draft: true
 
 DNA Datasets are massive. A single human genome can use several gigabytes of storage in its most simplest form of storage. Certain forms of storage can even scale to [200 GB for a single genome alone](https://medium.com/precision-medicine/how-big-is-the-human-genome-e90caa3409b0). As DNA sequencing becomes cheaper, roughly [40 exabytes of genomic data are produced per year](https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science). 
 
-Efficiently storing and analyzing these sequences is a critical challenge. Furthermore, the ability to analyze large sequences of data are increasingly critical. In this post, we will explore a method to compress DNA using 4-bits per nucleotide in pure Rust, that allows us to generate complimentary base pairs int its compressed form.
+Efficiently storing and analyzing these sequences is a critical challenge. Furthermore, the ability to analyze large sequences of data are increasingly critical. In this post, we will explore a method to compress DNA using 4-bits per nucleotide in pure Rust, that allows us to generate complimentary base pairs in its compressed form.
 
 This technique is especially useful in DNA analytical pipelines, where performance and memory constraints are critical. By minimizing the footprint of each sequence, we simultaneously reduce storage overhead and in-memory costs, without sacrificing speed or the ability to operate directly on compressed data.
 
@@ -32,12 +32,12 @@ This technique is especially useful in DNA analytical pipelines, where performan
 
 ### DNA Bases and IUPAC Codes
 
-There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.htmls). The most are familiar with are "A", "G", "C", and "T", representing the four standard DNA bases. However, DNA sequencing often produces ambiguous results. The remaining 11 codes are for these cases. For example, "R" can represent "G" _or_ "A", or "N" can represent _any_ nucleotide.
+There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.htmls). The ones that most are familiar with are "A", "G", "C", and "T", representing the four standard DNA bases. However, DNA sequencing often produces ambiguous results. The remaining 11 codes are for these cases. For example, "R" can represent "G" _or_ "A", while "N" can represent _any_ nucleotide.
 
 <details>
-<summary>Click to show IUPAC codes</summary>
+<summary>Click to show all 15 IUPAC codes</summary>
 
-| # | Symbol | Bases |
+|  | Symbol | Bases |
 | --- | ------ | ----- |
 | 1 | G | G |
 | 2 | A | A |
@@ -60,38 +60,38 @@ There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.htmls). 
 
 ### Complimentary Base Pairs
 
-DNA bases form pairs through well-defined chemical relationships: adenine (A) pairs with thymine (T), and cytosine (C) with guanine (G). These base-pairing rules extend to IUPAC ambiguity codes, which represent sets of possible nucleotides. For instance, "R" (A or G) complements "Y" (T or C). "N" (any base), "S" (G or C), and "W" (A or T) are self complimentary.
+DNA bases form pairs through well-defined chemical relationships: adenine (A) pairs with thymine (T), and cytosine (C) with guanine (G). These base-pairing rules extend to IUPAC ambiguity codes, which represent sets of possible nucleotides. For instance, "R" (A or G) complements "Y" (T or C). 
+
+There are three cases where the compliment is the same code. The bases "N" (any base), "S" (G or C), and "W" (A or T) all compliment to their own code (e.g. S->S, because "S" is represented by "G" or "C").
 
 ## Design
 
 Our compression system needs to be fast, small, and reversible. It should support all 15 IUPAC nucleotide codes and allow efficient I/O and transformation.
 
-- Translate compressed/uncompressed DNA to and from File.
-- Smallest representation of nucleotides possible.
 - Support for [all 15 IUPAC codes](https://genome.ucsc.edu/goldenPath/help/iupac.htmls).
+- Smallest representation of nucleotides possible.
+- Translate compressed/uncompressed DNA to and from file.
 - Easily retrieve complimentary base pairs (including IUPAC codes)
 
-Here is how I designed the compression system to balance size, speed, and reversibility.
+## Representing IUPAC Nucleotides in Four Bits
 
-## Representing IUPAC Nucleotides in 4 Bits
+Since four bits are enough to represent 16 values (2⁴ = 16), we can comfortably fit in all 15 codes as well as an additional padding code.
 
-Since four bits are enough to represent 16 values (2⁴ = 16) we can comfortably fit in all 15 codes as well as an additional padding code.
-
-Because Rust does not support native 4-bit types, our 4-bit encodings must be packed into a larger primitive. I opted to group 4 nucleotides into a single u16. Because 4-bit data types are still represented at the byte level in Rust, we can squeeze four nucleotide representations of DNA into a single u16. 
+Because Rust does not support native 4-bit types, our 4-bit encodings must be packed into a larger primitive. I opted to group 4 nucleotides into a single `u16` integer. Because 4-bit data types are still represented at the byte level in Rust, we can squeeze four nucleotide representations of DNA into a single `u16` integer. 
 
 When a sequence has fewer than four nucleotides remaining at the end, we use the 16th reserved value as a padding indicator. These padding values are ignored during decompression.
 
-### Support for bitwise rotation
+### Support for Bitwise Rotation
 
-To obtain support 12 complimentations and 3 self-complimentations, we can rotate the bit two positions. 
+To obtain support for 12 complimentations and 3 self-complimentations, we can rotate the bit two positions. 
 
-For example, A will be represented by "0001". Rotating 2 bits will give us "0100" T. An additional rotation should bring us back to A.
+For example, "A" will be represented by `0001`. Rotating two bits will give us `0100` "T". An additional two bit rotation will bring us back to "A", `0001`.
 
-Complimentary codes, should be symmetric on each half of the bit mask. For example, rotating "0101" two places will still give us "0101", as will "1111".
+Codes that compliment themselves must be symmetric on either half of the bit mask. For example, if we represent the code "S" ("G" or "C") as `0101`, rotating two bits will still give us `0101`.
 
 ## Nucleotide Encoding
 
-Lets first look a simple match expression to see the final schema we have derived. This match expressions encodes each IUPAC nucleotide into a 4-bit mask:
+Let's first look at a simple match expression to see the final schema we have derived. This match expressions encodes each IUPAC nucleotide into a 4-bit mask:
 
 ```rust
 let mask = match nuc {
@@ -120,17 +120,17 @@ This will serve as the building block for our 4-nucleotide compression scheme. N
 
 ## Introducing NucWord
 
-The NucWord struct represents four encoded nucleotides packed into a single u16. The methods `from_str` and `to_string` are used to serialize/deserialize.
+The NucWord `struct` represents four encoded nucleotides packed into a single `u16`. The methods `from_str` and `to_string` are used to serialize/deserialize.
 
 ```rust
 pub struct NucWord(u16);
 impl NucWord {
     pub fn from_str(nucleotide: &str) -> Self {
-      // ... 
+      // omitted for brevity...
     }
 
     pub fn to_string(&self) -> String {
-      // ...
+      // omitted for brevity...
     }
 }
 ```
@@ -170,7 +170,7 @@ pub fn from_str(nucleotides: &str) -> Self {
 }
 ```
 
-This simple method iterates through a slice of four nucleotides, translating each to its 4-bit encoding, and shifts them to their appropiate position in the u16.
+This simple method iterates through a slice of four nucleotides, translating each to its 4-bit encoding, and shifts them to their appropriate position in the `u16`.
 
 ## Decoding with `to_string`
 
@@ -210,7 +210,7 @@ pub fn to_string(&self) -> String {
 }
 ```
 
-This method takes a 4-bit mask to return a String implementation of our nucleotide, filtering out any padded characters.
+This method takes a 4-bit mask to return a `String` implementation of our nucleotide, filtering out any padded characters.
 
 ## NucBlockVec
 
@@ -309,20 +309,20 @@ This works because the 4-bit encodings were designed so that a 2-bit rotation pr
 Lets compare this bit rotation to a simpler match implementation:
 
 ![_Figure 1_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in nanoseconds.](/assets/bitvsmatchcompliment.png)
-<small>Bit rotation vs Match Arm for DNA Compliment</small>
+<small>Bit rotation vs match arm for DNA Compliment</small>
 
 Bit rotation is roughly 2x faster (Fig. 1) than using a match arm to grab DNA base pair compliments.
 
-The speed saving becomes more important when dealing with [very large nucleotide sequences](https://www.ncbi.nlm.nih.gov/nuccore/AE014297). In Fig. 2, the time is reduced from ~0.6 seconds to ~0.3 seconds.
+The speed savings becomes more important when dealing with [very large nucleotide sequences](https://www.ncbi.nlm.nih.gov/nuccore/AE014297). In Fig. 2, the time is reduced from ~0.6 seconds to ~0.3 seconds.
 
 ![_Figure 2_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in milliseconds for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE014297).](/assets/bitvsmatchcomplimentAE014297.png)
-<small>Bit rotation vs Match Arm for DNA Compliment for [large _Drosophila Melanogaster_ nucleotide sequence)(https://www.ncbi.nlm.nih.gov/nuccore/AE01429)]</small>
+<small>Bit rotation vs match arm for DNA compliment for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE01429)</small>
 
 
 ## Conclusion
 
 Efficient DNA compression is a challenging problem at the intersection of systems programming and bioinformatics. This Rust based 4-bit DNA encoder offers a lightweight, fast, and ergonomic way to handle genetic data efficiently. 
 
-Using bitwise operations greatly speed up complimentary generation. I feel I've only scratched the surface and look forward to getting more use out of this encoding.
+Using bitwise operations doubled complimentary generation speed. I feel I've only scratched the surface and look forward to getting more use out of this encoding.
 
-Check out the code on my [GitHub](https://github.com/arianfarid/nucleotide-encoder). Thanks for reading!
+Check out the source code on my [GitHub](https://github.com/arianfarid/nucleotide-encoder). Thanks for reading!
