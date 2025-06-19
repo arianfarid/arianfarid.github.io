@@ -37,7 +37,7 @@ onMounted(async () => {
         <template #doc-before>
             <center>
                 <h1 class="vph">{{ frontmatter.title }}</h1>
-                <div class="meta">
+                <div v-if="!frontmatter.hideFrontMeta" class="meta">
                     <span class="meta-item" style="margin-right: 40px;" v-if="frontmatter.date">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor">
@@ -58,7 +58,7 @@ onMounted(async () => {
             </center>
         <!-- </template>
         <template #doc-before> -->
-            <div class="tags">
+            <div class="tags" v-if="frontmatter.tags?.length">
                 <span class="tags-item">
                     <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
