@@ -15,9 +15,8 @@ tags:
   - Compression
   - Bitwise
   - Bioinformatics 
-search: false   
-listed: false
-draft: true
+search: true   
+listed: true
 
 ---
 

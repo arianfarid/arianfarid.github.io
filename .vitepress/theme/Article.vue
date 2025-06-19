@@ -130,6 +130,7 @@ onMounted(async () => {
     margin-bottom: 1.5rem;
     font-weight: 600;
     gap: 1rem;
+    line-height: 32px;
 }
 
 .tags-item {
