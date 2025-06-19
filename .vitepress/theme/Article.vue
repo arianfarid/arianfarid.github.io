@@ -38,7 +38,7 @@ onMounted(async () => {
             <center>
                 <h1 class="vph">{{ frontmatter.title }}</h1>
                 <div v-if="!frontmatter.hideFrontMeta" class="meta">
-                    <span class="meta-item" style="margin-right: 40px;" v-if="frontmatter.date">
+                    <span class="meta-item"  v-if="frontmatter.date">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -107,7 +107,7 @@ onMounted(async () => {
 /* Smaller screens: stack vertically */
 @media (max-width: 600px) {
     .meta {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: flex-start;
     }
 
