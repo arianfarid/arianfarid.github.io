@@ -1,12 +1,12 @@
 ---
 id: "1"
 title: "Bitwise DNA Compression in Rust: Small Footprint with Fast Reverse Compliments"
-description: "How I used Rust to compress DNA sequences with 4-bit encodings, enabling fast bitwise rotation-based DNA complimentary base pairs."
-date: "2025-06-17"
 categories:
   - "Rust"
   - "Data Compression"
   - "Systems Programming"
+description: "How I used Rust to compress DNA sequences with 4-bit encodings, enabling fast bitwise rotation-based DNA complimentary base pairs."
+date: "2025-06-17"
 tags:
   - Rust
   - Systems Programming
@@ -18,11 +18,10 @@ tags:
 search: false   
 listed: false
 draft: true
+
 ---
 
-# Bitwise DNA Compression in Rust: Small Footprint with Fast Reverse Compliments
-
-DNA Datasets are massive. A single human genome can use several gigabytes of storage in its most simplest form of storage. Certain forms of storage can even scale to [200 GB for a single genome alone](https://medium.com/precision-medicine/how-big-is-the-human-genome-e90caa3409b0). As DNA sequencing becomes cheaper, roughly [40 exabytes of genomic data are produced per year](https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science). 
+DNA datasets are massive. A single human genome can use several gigabytes of storage in its most simplest form of storage. Certain forms of storage can even scale to [200 GB for a single genome alone](https://medium.com/precision-medicine/how-big-is-the-human-genome-e90caa3409b0). As DNA sequencing becomes cheaper, roughly [40 exabytes of genomic data are produced per year](https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science). 
 
 Efficiently storing and analyzing these sequences is a critical challenge. Furthermore, the ability to analyze large sequences of data are increasingly critical. In this post, we will explore a method to compress DNA using 4-bits per nucleotide in pure Rust, that allows us to generate complimentary base pairs in its compressed form.
 
