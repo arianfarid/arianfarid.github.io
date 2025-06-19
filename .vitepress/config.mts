@@ -4,8 +4,16 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Arian Farid",
   description: "Arian Farid's personal website and blog.",
-  head: [['link', { rel: 'icon', href: '/images/avatar.jpeg' }]],
-  themeConfig: {
+  head: [
+    ['link', { rel: 'icon', href: '/images/avatar.jpeg' }],
+    ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-M00KH2W2YM' }],
+    ['script', {}, `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-M00KH2W2YM');
+    `]
+  ],  themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
