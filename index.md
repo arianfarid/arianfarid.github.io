@@ -8,7 +8,23 @@ hero:
 ---
 <script setup>
 import { data } from '/articles/latest.data.js'
+const members = [
+  {
+    avatar: '/assets/avatar.jpeg',
+    name: 'Arian Farid',
+    title: 'Software Developer',
+    links: [
+      { icon: 'github', link: 'https://github.com/yyx990803' },
+      { icon: 'twitter', link: 'https://twitter.com/youyuxi' }
+    ]
+  },
+]
 </script>
+<!-- <VPTeamMembers size="small" :members /> -->
+
+I'm a Senior Software Developer, formerly a (PhD-trained) Biologist. 
+This is a creative outlet for my technical projects. 
+
 # Latest posts
 
 <div style="list-style-type: none;">
