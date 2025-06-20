@@ -1,11 +1,11 @@
 ---
 id: "1"
-title: "Bitwise DNA Compression in Rust: Small Footprint with Fast Reverse Compliments"
+title: "Bitwise DNA Compression in Rust: Small Footprint with Fast Reverse Complements"
 categories:
   - "Rust"
   - "Data Compression"
   - "Systems Programming"
-description: "How I used Rust to compress DNA sequences with 4-bit encodings, enabling fast bitwise rotation-based DNA complimentary base pairs."
+description: "How I used Rust to compress DNA sequences with 4-bit encodings, enabling fast bitwise rotation-based DNA Complementary base pairs."
 date: "2025-06-17"
 tags:
   - Rust
@@ -22,7 +22,7 @@ listed: true
 
 DNA datasets are massive. A single human genome can use several gigabytes of storage in its most simplest form of storage. Certain forms of storage can even scale to [200 GB for a single genome alone](https://medium.com/precision-medicine/how-big-is-the-human-genome-e90caa3409b0). As DNA sequencing becomes cheaper, roughly [40 exabytes of genomic data are produced per year](https://www.genome.gov/about-genomics/fact-sheets/Genomic-Data-Science). 
 
-Efficiently storing and analyzing these sequences is a critical challenge. Furthermore, the ability to analyze large sequences of data are increasingly critical. In this post, we will explore a method to compress DNA using 4-bits per nucleotide in pure Rust, that allows us to generate complimentary base pairs in its compressed form.
+Efficiently storing and analyzing these sequences is a critical challenge. Furthermore, the ability to analyze large sequences of data are increasingly critical. In this post, we will explore a method to compress DNA using 4-bits per nucleotide in pure Rust, that allows us to generate Complementary base pairs in its compressed form.
 
 This technique is especially useful in DNA analytical pipelines, where performance and memory constraints are critical. By minimizing the footprint of each sequence, we simultaneously reduce storage overhead and in-memory costs, without sacrificing speed or the ability to operate directly on compressed data.
 
@@ -56,11 +56,11 @@ There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.htmls). 
 
 </details>
 
-### Complimentary Base Pairs
+### Complementary Base Pairs
 
 DNA bases form pairs through well-defined chemical relationships: adenine (A) pairs with thymine (T), and cytosine (C) with guanine (G). These base-pairing rules extend to IUPAC ambiguity codes, which represent sets of possible nucleotides. For instance, "R" (A or G) complements "Y" (T or C). 
 
-There are three cases where the compliment is the same code. The bases "N" (any base), "S" (G or C), and "W" (A or T) all compliment to their own code (e.g. S->S, because "S" is represented by "G" or "C").
+There are three cases where the Complement is the same code. The bases "N" (any base), "S" (G or C), and "W" (A or T) all Complement to their own code (e.g. S->S, because "S" is represented by "G" or "C").
 
 ## Design
 
@@ -69,7 +69,7 @@ Our compression system needs to be fast, small, and reversible. It should suppor
 - Support for [all 15 IUPAC codes](https://genome.ucsc.edu/goldenPath/help/iupac.htmls).
 - Smallest representation of nucleotides possible.
 - Translate compressed/uncompressed DNA to and from file.
-- Easily retrieve complimentary base pairs (including IUPAC codes)
+- Easily retrieve Complementary base pairs (including IUPAC codes)
 
 ## Representing IUPAC Nucleotides in Four Bits
 
@@ -81,11 +81,11 @@ When a sequence has fewer than four nucleotides remaining at the end, we use the
 
 ### Support for Bitwise Rotation
 
-To obtain support for 12 complimentations and 3 self-complimentations, we can rotate the bit two positions. 
+To obtain support for 12 Complementations and 3 self-Complementations, we can rotate the bit two positions. 
 
 For example, "A" will be represented by `0001`. Rotating two bits will give us `0100` "T". An additional two bit rotation will bring us back to "A", `0001`.
 
-Codes that compliment themselves must be symmetric on either half of the bit mask. For example, if we represent the code "S" ("G" or "C") as `0101`, rotating two bits will still give us `0101`.
+Codes that Complement themselves must be symmetric on either half of the bit mask. For example, if we represent the code "S" ("G" or "C") as `0101`, rotating two bits will still give us `0101`.
 
 ## Nucleotide Encoding
 
@@ -114,7 +114,7 @@ let mask = match nuc {
 };
 ```
 
-This will serve as the building block for our 4-nucleotide compression scheme. Note that _complimentary base pairs_ (e.g. G/C, or A/T) are rotated 2 positions!
+This will serve as the building block for our 4-nucleotide compression scheme. Note that _Complementary base pairs_ (e.g. G/C, or A/T) are rotated 2 positions!
 
 ## Introducing NucWord
 
@@ -280,23 +280,23 @@ fn main() -> std::io::Result<()> {
 
 Inspecting `output.txt` file size, we have 8,286 bytes... Exactly half the size!
 
-## Generating Complimentary Base Pairs
+## Generating Complementary Base Pairs
 
 Here’s how we implement base-pair complements using our bit rotation trick:
 
 ```rust
 impl NucWord {
     // ...
-    pub fn compliment(&mut self, i: usize) {
+    pub fn Complement(&mut self, i: usize) {
         let shift = i * 4;
         let mask = 0b1111 << shift;
         let to_mask = (self.0 & mask) >> shift;
         let complement = (to_mask << 2 | to_mask >> 2) & 0b1111;
         self.0 = (self.0 & !mask) | (complement << shift);
     }
-    pub fn compliment_each(&mut self) {
+    pub fn Complement_each(&mut self) {
         for i in 0..4 {
-            self.compliment(i);
+            self.Complement(i);
         }
     }
 }
@@ -306,21 +306,21 @@ This works because the 4-bit encodings were designed so that a 2-bit rotation pr
 
 Lets compare this bit rotation to a simpler match implementation:
 
-![_Figure 1_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in nanoseconds.](/assets/bitvsmatchcompliment.png)
-<small>Bit rotation vs match arm for DNA Compliment</small>
+![_Figure 1_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in nanoseconds.](/assets/bitvsmatchComplement.png)
+<small>Bit rotation vs match arm for DNA Complement</small>
 
-Bit rotation is roughly 2x faster (Fig. 1) than using a match arm to grab DNA base pair compliments.
+Bit rotation is roughly 2x faster (Fig. 1) than using a match arm to grab DNA base pair Complements.
 
 The speed savings becomes more important when dealing with [very large nucleotide sequences](https://www.ncbi.nlm.nih.gov/nuccore/AE014297). In Fig. 2, the time is reduced from ~0.6 seconds to ~0.3 seconds.
 
-![_Figure 2_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in milliseconds for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE014297).](/assets/bitvsmatchcomplimentAE014297.png)
-<small>Bit rotation vs match arm for DNA compliment for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE01429)</small>
+![_Figure 2_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in milliseconds for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE014297).](/assets/bitvsmatchComplementAE014297.png)
+<small>Bit rotation vs match arm for DNA Complement for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE01429)</small>
 
 
 ## Conclusion
 
 Efficient DNA compression is a challenging problem at the intersection of systems programming and bioinformatics. This Rust based 4-bit DNA encoder offers a lightweight, fast, and ergonomic way to handle genetic data efficiently. 
 
-Using bitwise operations doubled complimentary generation speed. I feel I've only scratched the surface and look forward to getting more use out of this encoding.
+Using bitwise operations doubled Complementary generation speed. I feel I've only scratched the surface and look forward to getting more use out of this encoding.
 
 Check out the source code on my [GitHub](https://github.com/arianfarid/nucleotide-encoder). Thanks for reading!
