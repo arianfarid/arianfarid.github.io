@@ -52,7 +52,7 @@ There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.html). T
 | 13 | V | G or C or A |
 | 14 | D | G or A or T |
 | 15 | N | G or A or T or C |
-|[source](https://genome.ucsc.edu/goldenPath/help/iupac.htmls)|
+|[source](https://genome.ucsc.edu/goldenPath/help/iupac.html)|
 
 </details>
 
