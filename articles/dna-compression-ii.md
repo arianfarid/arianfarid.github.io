@@ -19,7 +19,7 @@ search: false
 listed: false
 
 ---
-
+<!-- 
 ## Design
 
 Several improvements will be made to increase the speed of calculations.
@@ -79,4 +79,4 @@ We send each nucleotide in NucWord into a an array `bases`. This is converted to
             ((simd_chunk << 2) | (simd_chunk >> 2)) & u16x4::splat(0b1111);
         }
     }
-```
+``` -->

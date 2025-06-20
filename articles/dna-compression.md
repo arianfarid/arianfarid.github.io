@@ -30,7 +30,7 @@ This technique is especially useful in DNA analytical pipelines, where performan
 
 ### DNA Bases and IUPAC Codes
 
-There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.htmls). The ones that most are familiar with are "A", "G", "C", and "T", representing the four standard DNA bases. However, DNA sequencing often produces ambiguous results. The remaining 11 codes are for these cases. For example, "R" can represent "G" _or_ "A", while "N" can represent _any_ nucleotide.
+There are [15 IUPAC codes](ttps://genome.ucsc.edu/goldenPath/help/iupac.html). The ones that most are familiar with are "A", "G", "C", and "T", representing the four standard DNA bases. However, DNA sequencing often produces ambiguous results. The remaining 11 codes are for these cases. For example, "R" can represent "G" _or_ "A", while "N" can represent _any_ nucleotide.
 
 <details>
 <summary>Click to show all 15 IUPAC codes</summary>
