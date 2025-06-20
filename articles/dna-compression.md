@@ -306,14 +306,14 @@ This works because the 4-bit encodings were designed so that a 2-bit rotation pr
 
 Lets compare this bit rotation to a simpler match implementation:
 
-![_Figure 1_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in nanoseconds.](/assets/bitvsmatchComplement.png)
+![_Figure 1_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in nanoseconds.](/assets/bitvsmatchcomplement.png)
 <small>Bit rotation vs match arm for DNA Complement</small>
 
 Bit rotation is roughly 2x faster (Fig. 1) than using a match arm to grab DNA base pair Complements.
 
 The speed savings becomes more important when dealing with [very large nucleotide sequences](https://www.ncbi.nlm.nih.gov/nuccore/AE014297). In Fig. 2, the time is reduced from ~0.6 seconds to ~0.3 seconds.
 
-![_Figure 2_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in milliseconds for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE014297).](/assets/bitvsmatchComplementAE014297.png)
+![_Figure 2_. Scatter plot showing speed of bit rotation (blue) and match arm (orange) in milliseconds for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE014297).](/assets/bitvsmatchcomplementAE014297.png)
 <small>Bit rotation vs match arm for DNA Complement for [large _Drosophila Melanogaster_ nucleotide sequence](https://www.ncbi.nlm.nih.gov/nuccore/AE01429)</small>
 
 
