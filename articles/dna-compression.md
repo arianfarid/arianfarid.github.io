@@ -66,7 +66,7 @@ There are three cases where the Complement is the same code. The bases "N" (any 
 
 Our compression system needs to be fast, small, and reversible. It should support all 15 IUPAC nucleotide codes and allow efficient I/O and transformation.
 
-- Support for [all 15 IUPAC codes](https://genome.ucsc.edu/goldenPath/help/iupac.htmls).
+- Support for [all 15 IUPAC codes](https://genome.ucsc.edu/goldenPath/help/iupac.html).
 - Smallest representation of nucleotides possible.
 - Translate compressed/uncompressed DNA to and from file.
 - Easily retrieve Complementary base pairs (including IUPAC codes)
