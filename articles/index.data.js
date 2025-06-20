@@ -6,7 +6,7 @@ export default createContentLoader(
     excerpt: true,
     transform(raw) {
       return raw
-        .sort((a, b) => b.date.time - a.date.time)
+        // .sort((a, b) => b.date.time - a.date.time)
         .filter((a) => a.frontmatter.listed)
     }
   //   transform(raw) {
