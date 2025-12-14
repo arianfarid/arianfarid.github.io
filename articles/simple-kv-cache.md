@@ -16,6 +16,7 @@ tags:
   - Hammerspoon
 listed: false
 draft: false
+search: false
 ---
 
 The aim of this post is to share a personal tool I recently developed, called KV-Store. Rather tahmn reaching for Redis or a heavier dependency, I wanted something local and purpose-built.
@@ -359,7 +360,13 @@ Next, textInput creates an hs.chooser instance, populates it with available keys
 
 Finally, we bind the script to ⌘ + Shift + K. When triggered, the chooser appears, the selected key is resolved via the KV daemon, and the resulting value is automatically copied to the clipboard and typed at the cursor position.
 
-## Future improvements
+## Conclusion
+
+Overall, this has been a nice addition to improve my workflow. It's small, simple, and does exactly what I need without adding unnecessary complexity or overhead.
+Building kv-store was also a great exercise in designing a minimal log-structured system and integrating it into real-world automation with Hammerspoon.
+Check out the source code on my [Github](https://github.com/arianfarid/kvstore)
+
+### Future improvements
 
 In the future, I plan to add a `compaction` to remove intermediate or tombstoned keys. 
 
