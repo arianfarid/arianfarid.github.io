@@ -1,11 +1,14 @@
 ---
-title: "About page"
+title: "About Arian Farid"
 description: "Arian Farid's personal blog."
-hideFrontMeta: true
 layout: home
 hero:
     name : Hi, I'm Arian
 ---
+
+# About Arian Farid
+
+Arian Farid is a senior software developer with over a decade of experience building production systems across web, mobile, and data-driven platforms. He previously trained as a biologist, earning a PhD, and brings a systems-level perspective to software engineering.
 
 
 <!-- I'm a Senior Software Developer and former PhD-trained Biologist. 
