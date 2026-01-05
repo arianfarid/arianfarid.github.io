@@ -55,7 +55,8 @@ export default defineConfig({
     },
     socialLinks: [
       { icon: "linkedin", link: "https://www.linkedin.com/in/arian-farid/" },
-      { icon: 'github', link: 'https://github.com/arianfarid' }
+      { icon: 'github', link: 'https://github.com/arianfarid' },
+      { icon: "codeberg", link: "https://codeberg.org/arianfarid"},     
     ]
   }
 })
