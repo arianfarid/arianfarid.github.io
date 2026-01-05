@@ -22,7 +22,7 @@ const members = [
 <!-- <VPTeamMembers size="small" :members /> -->
 # Arian Farid
 
-I'm Arian Farid, a Senior Software Developer with over a decade of experience. Formerly a (PhD-trained) Biologist, I bring my passion for understanding complex systems to developing software.
+I’m Arian Farid, a senior software developer with over a decade of experience building production software. Formerly a PhD-trained biologist, I bring a systems-oriented mindset and a deep interest in complex systems to software engineering.
 This blog is a creative outlet for projects, technical or otherwise, that I find interesting. You can find me on [Linkedin](https://www.linkedin.com/in/arian-farid/), [GitHub](https://github.com/arianfarid), and [Codeberg](https://codeberg.org/arianfarid).
 
 # Latest posts
