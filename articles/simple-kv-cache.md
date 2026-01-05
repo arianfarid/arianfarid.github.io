@@ -14,9 +14,9 @@ tags:
   - Cache
   - Store 
   - Hammerspoon
-listed: false
+listed: true
 draft: false
-search: false
+search: true
 ---
 
 The aim of this post is to share a personal tool I recently developed, called KV-Store. Rather tahmn reaching for Redis or a heavier dependency, I wanted something local and purpose-built.
