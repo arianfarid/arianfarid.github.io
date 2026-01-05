@@ -5,7 +5,27 @@ export default defineConfig({
   title: "Arian Farid",
   description: "Arian Farid's personal website and blog.",
   head: [
+    ['link', { rel: 'canonical', href: 'https://arianfarid.me/' }],
     ['link', { rel: 'icon', href: '/images/avatar.jpeg' }],
+    ['meta', { name: 'author', content: 'Arian Farid' }],
+    [
+      'script',
+      { type: 'application/ld+json' },
+      JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Arian Farid',
+        url: 'https://arianfarid.me',
+        image: 'https://arianfarid.me/images/avatar.jpeg',
+        sameAs: [
+          'https://github.com/arianfarid',
+          'https://www.linkedin.com/in/arian-farid/',
+        ],
+        jobTitle: 'Senior Software Developer',
+        description:
+          'Senior Software Developer with over 10 years of experience and a PhD in Biology.',
+      }),
+    ],
     ['script', { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-M00KH2W2YM' }],
     ['script', {}, `
       window.dataLayer = window.dataLayer || [];

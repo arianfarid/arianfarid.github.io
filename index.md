@@ -20,9 +20,10 @@ const members = [
 ]
 </script>
 <!-- <VPTeamMembers size="small" :members /> -->
+# Arian Farid
 
-I'm a Senior Software Developer. Formerly a (PhD-trained) Biologist, I bring my passion for understanding complex systems to developing software.
-This blog is a creative outlet for projects, technical or otherwise, that I find interesting. You can find me on [Linkedin](https://www.linkedin.com/in/arian-farid/) and [GitHub](https://github.com/arianfarid).
+I'm Arian Farid, a Senior Software Developer with over a decade of experience. Formerly a (PhD-trained) Biologist, I bring my passion for understanding complex systems to developing software.
+This blog is a creative outlet for projects, technical or otherwise, that I find interesting. You can find me on [Linkedin](https://www.linkedin.com/in/arian-farid/), [GitHub](https://github.com/arianfarid), and [Codeberg](https://codeberg.org/arianfarid).
 
 # Latest posts
 <div style="list-style-type: none;">
