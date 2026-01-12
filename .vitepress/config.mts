@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Arian Farid",
+  cleanUrls: true,
   description: "Arian Farid's personal website and blog.",
   head: [
     ['link', { rel: 'canonical', href: 'https://arianfarid.me/' }],
