@@ -1,9 +1,13 @@
 ---
-title: "Latest Articles"
-description: "The archive."
+title: "Articles by Arian Farid"
+description: "Articles and essays by Arian Farid on software engineering, systems design, and developer tooling."
 hideFrontMeta: true
 sidebar: false
 ---
+# Articles by Arian Farid
+
+This page lists articles and essays written by **Arian Farid** on software engineering, systems design, developer tooling, and technical side projects. 
+New posts are added periodically and reflect my ongoing work and interests.
 
 <script setup>
 import { data } from '/articles/index.data.js'
