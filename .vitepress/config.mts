@@ -5,8 +5,29 @@ export default defineConfig({
   title: "Arian Farid",
   cleanUrls: true,
   description: "Arian Farid's personal website and blog covering software development and complex systems.",
+  transformPageData(pageData) {
+    const path = pageData.relativePath
+      .replace(/index\.md$/, '')
+      .replace(/\.md$/, '')
+    const canonicalUrl = path ? `https://arianfarid.me/${path}` : 'https://arianfarid.me/'
+    const title = pageData.frontmatter.title || 'Arian Farid'
+    const description = pageData.frontmatter.description || "Arian Farid's personal website and blog covering software development and complex systems."
+    const ogType = pageData.relativePath.startsWith('articles/') ? 'article' : 'website'
+
+    pageData.frontmatter.head ??= []
+    pageData.frontmatter.head.push(
+      ['link', { rel: 'canonical', href: canonicalUrl }],
+      ['meta', { property: 'og:url', content: canonicalUrl }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:type', content: ogType }],
+      ['meta', { property: 'og:image', content: 'https://arianfarid.me/images/avatar.jpeg' }],
+      ['meta', { name: 'twitter:card', content: 'summary' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }],
+    )
+  },
   head: [
-    ['link', { rel: 'canonical', href: 'https://arianfarid.me/' }],
     ['link', { rel: 'icon', href: '/images/avatar.jpeg' }],
     ['meta', { name: 'author', content: 'Arian Farid' }],
     [
