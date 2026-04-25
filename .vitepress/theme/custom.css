@@ -31,6 +31,16 @@ body::after {
   background-size: 200px 200px;
 }
 
+/* iOS safe area */
+.VPNav {
+  padding-top: env(safe-area-inset-top);
+  height: calc(var(--vp-nav-height) + env(safe-area-inset-top));
+}
+
+.VPLocalNav {
+  top: calc(var(--vp-nav-height) + env(safe-area-inset-top));
+}
+
 /* Navbar title */
 .VPNavBarTitle .title {
   font-family: 'Lora', Georgia, serif;
