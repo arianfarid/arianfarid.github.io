@@ -69,8 +69,8 @@ body::before {
 
 html:not(.dark) body::before {
   mix-blend-mode: color;
-  background-color: rgba(180, 0, 30, 0.9);
-  filter: drop-shadow(22px 0 10px rgba(255, 10, 0, 1.0)) drop-shadow(-22px 0 10px rgba(0, 10, 255, 1.0));
+  background-color: rgba(210, 75, 10, 0.95);
+  filter: drop-shadow(22px 0 10px rgba(210, 90, 10, 1.0)) drop-shadow(-22px 0 10px rgba(0, 40, 200, 1.0));
   -webkit-mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
   mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
 }
