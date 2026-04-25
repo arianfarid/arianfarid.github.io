@@ -1,0 +1,54 @@
+@property --grain-intensity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@keyframes grain-crackle {
+  0%   { background-position: 0 0; }
+  20%  { background-position: -8% 12%; }
+  40%  { background-position: 15% -8%; }
+  60%  { background-position: -5% 20%; }
+  80%  { background-position: 10% -15%; }
+  100% { background-position: 0 0; }
+}
+
+/* Base ambient layer */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Press-burst layer */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: var(--grain-intensity);
+  mix-blend-mode: screen;
+  background-color: rgba(160, 60, 20, 0.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: grain-crackle 0.4s steps(5) infinite;
+  filter: drop-shadow(2.5px 0 1px rgba(220, 40, 0, 0.7)) drop-shadow(-2.5px 0 1px rgba(0, 80, 220, 0.6));
+  -webkit-mask-image: radial-gradient(circle 150px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.05) 70%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.05) 70%, transparent 100%);
+}
+
+html:not(.dark) body::before {
+  mix-blend-mode: hard-light;
+  background-color: rgba(210, 75, 10, 0.95);
+  filter: drop-shadow(22px 0 10px rgba(210, 90, 10, 1.0)) drop-shadow(-22px 0 10px rgba(0, 40, 200, 1.0));
+  -webkit-mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,1.0) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 70%, transparent 100%);
+  mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,1.0) 0%, rgba(0,0,0,0.6) 40%, rgba(0,0,0,0.2) 70%, transparent 100%);
+}
