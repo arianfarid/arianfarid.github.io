@@ -3,6 +3,7 @@ import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 import { onMounted, ref, watch, nextTick } from 'vue'
 import { useGrain } from './useGrain'
+import { useHoliday } from './useHoliday'
 
 const { frontmatter, page } = useData()
 
@@ -38,6 +39,7 @@ onMounted(updateReadingTime)
 watch(() => page.value.relativePath, updateReadingTime)
 
 useGrain()
+useHoliday()
 </script>
 
 <template>
