@@ -173,11 +173,14 @@ function formatDate(date) {
 }
 
 .tag {
-  font-size: 0.7rem;
-  padding: 0.15rem 0.55rem;
-  border-radius: 999px;
-  background: var(--vp-c-brand-soft);
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  background: transparent;
+  border: 1px solid var(--vp-c-brand-1);
   color: var(--vp-c-brand-1);
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 </style>
