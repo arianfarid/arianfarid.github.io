@@ -18,7 +18,7 @@
   --vp-c-bg-soft: #1f1c18;
 }
 
-/* Film grain overlay */
+/* Film grain overlay — base layer */
 body::after {
   content: '';
   position: fixed;
@@ -29,6 +29,41 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
+}
+
+/* Film grain overlay — cursor-intensified layer */
+@property --grain-intensity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+
+@keyframes grain-crackle {
+  0%   { background-position: 0 0; }
+  20%  { background-position: -8% 12%; }
+  40%  { background-position: 15% -8%; }
+  60%  { background-position: -5% 20%; }
+  80%  { background-position: 10% -15%; }
+  100% { background-position: 0 0; }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: var(--grain-intensity);
+  mix-blend-mode: screen;
+  background-color: rgba(160, 60, 20, 0.1);
+  filter: drop-shadow(2.5px 0 1px rgba(220, 40, 0, 0.7)) drop-shadow(-2.5px 0 1px rgba(0, 80, 220, 0.6));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: grain-crackle 0.4s steps(5) infinite;
+  -webkit-mask-image: radial-gradient(circle 150px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.05) 70%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.05) 70%, transparent 100%);
 }
 
 /* iOS safe area */
