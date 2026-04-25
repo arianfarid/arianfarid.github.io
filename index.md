@@ -18,7 +18,7 @@ function formatDate(date) {
 <div class="home">
   <section class="hero">
     <h1 class="hero-name">Arian Farid</h1>
-    <p class="hero-role">Senior Software Developer · PhD Biologist</p>
+    <p class="hero-role">Senior Software Developer · PhD Mycologist</p>
     <p class="hero-bio">
       Writing about software systems, algorithms, and the occasional intersection with biology.
       Over a decade building production software with a systems-oriented mindset.
@@ -37,14 +37,14 @@ function formatDate(date) {
   <section class="posts">
     <h2 class="posts-label">Writing</h2>
     <div class="post-list">
-      <a v-for="post in data" :key="post.url" :href="post.url" class="post-card">
+      <div v-for="post in data" :key="post.url" class="post-card">
         <span class="post-date">{{ formatDate(post.frontmatter.date) }}</span>
-        <h3 class="post-title">{{ post.frontmatter.title }}</h3>
+        <h3 class="post-title"><a :href="post.url">{{ post.frontmatter.title }}</a></h3>
         <p class="post-desc">{{ post.frontmatter.description }}</p>
         <div class="post-tags" v-if="post.frontmatter.tags?.length">
           <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">{{ tag }}</span>
         </div>
-      </a>
+      </div>
     </div>
   </section>
 </div>
@@ -111,12 +111,13 @@ function formatDate(date) {
 }
 
 .posts-label {
-  font-size: 0.7rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--vp-c-brand-1);
+  color: var(--vp-c-text-1);
   margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .post-list {
@@ -125,20 +126,8 @@ function formatDate(date) {
 }
 
 .post-card {
-  display: block;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--vp-c-divider);
-  text-decoration: none;
-  color: inherit;
-  transition: opacity 0.15s ease;
-}
-
-.post-card:first-child {
-  border-top: 1px solid var(--vp-c-divider);
-}
-
-.post-card:hover {
-  opacity: 0.65;
 }
 
 .post-date {
@@ -156,7 +145,15 @@ function formatDate(date) {
   font-weight: 600;
   line-height: 1.35;
   margin: 0 0 0.45rem;
+}
+
+.post-title a {
   color: var(--vp-c-text-1);
+  text-decoration: none;
+}
+
+.post-title a:hover {
+  color: var(--vp-c-brand-1);
 }
 
 .post-desc {
@@ -182,5 +179,6 @@ function formatDate(date) {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  cursor: default;
 }
 </style>
