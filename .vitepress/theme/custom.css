@@ -1,4 +1,170 @@
 :root {
-    /* --vp-home-hero-name-color: #c45508;
-    --vp-c-brand-1: #c45508; */
+  --vp-code-lang-color: var(--vp-c-text-2);
+  --vp-c-brand-1: #A33020;
+  --vp-c-brand-2: #8B2010;
+  --vp-c-brand-3: #BE3D28;
+  --vp-c-brand-soft: rgba(163, 48, 32, 0.12);
+  --vp-c-bg: #f0ede8;
+  --vp-c-bg-alt: #e8e4de;
+  --vp-c-bg-soft: #e8e4de;
+}
+
+.dark {
+  --vp-c-brand-1: #C94828;
+  --vp-c-brand-2: #B03820;
+  --vp-c-brand-3: #D95C3A;
+  --vp-c-brand-soft: rgba(201, 72, 40, 0.16);
+  --vp-c-bg: #1a1714;
+  --vp-c-bg-alt: #141210;
+  --vp-c-bg-soft: #1f1c18;
+}
+
+/* Film grain overlay — base layer */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+
+/* Film grain overlay — cursor-intensified layer */
+@property --grain-intensity {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+
+@keyframes grain-crackle {
+  0%   { background-position: 0 0; }
+  20%  { background-position: -8% 12%; }
+  40%  { background-position: 15% -8%; }
+  60%  { background-position: -5% 20%; }
+  80%  { background-position: 10% -15%; }
+  100% { background-position: 0 0; }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: var(--grain-intensity);
+  mix-blend-mode: screen;
+  background-color: rgba(160, 60, 20, 0.1);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  animation: grain-crackle 0.4s steps(5) infinite;
+  filter: drop-shadow(2.5px 0 1px rgba(220, 40, 0, 0.7)) drop-shadow(-2.5px 0 1px rgba(0, 80, 220, 0.6));
+  -webkit-mask-image: radial-gradient(circle 150px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.05) 70%, transparent 100%);
+  mask-image: radial-gradient(circle 150px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.05) 70%, transparent 100%);
+}
+
+html:not(.dark) body::before {
+  mix-blend-mode: color;
+  background-color: rgba(210, 75, 10, 0.95);
+  filter: drop-shadow(22px 0 10px rgba(210, 90, 10, 1.0)) drop-shadow(-22px 0 10px rgba(0, 40, 200, 1.0));
+  -webkit-mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
+  mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
+}
+
+/* iOS safe area + always-visible sticky nav on mobile */
+.VPNav {
+  padding-top: env(safe-area-inset-top);
+  height: calc(var(--vp-nav-height) + env(safe-area-inset-top));
+}
+
+@media (max-width: 959px) {
+  .VPNav {
+    position: sticky !important;
+    top: 0 !important;
   }
+
+  .VPLocalNav {
+    top: calc(var(--vp-nav-height) + env(safe-area-inset-top)) !important;
+  }
+}
+
+.VPLocalNav {
+  top: calc(var(--vp-nav-height) + env(safe-area-inset-top));
+}
+
+/* Footer */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-brand-1) !important;
+  padding: 2rem 1.5rem !important;
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.8rem !important;
+  color: var(--vp-c-text-2) !important;
+  letter-spacing: 0.03em;
+}
+
+/* Navbar title */
+.VPNavBarTitle .title {
+  font-family: 'Lora', Georgia, serif;
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 600;
+}
+
+/* Typography: Lora for headings */
+.VPDoc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4 {
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Article layout: code blocks bleed past the content column */
+@media (min-width: 640px) {
+  .vp-doc div[class*='language-'] {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    border-radius: 8px;
+  }
+}
+
+
+/* Article tags: override VitePress Badge to match homepage tag style */
+.VPBadge {
+  background: transparent !important;
+  border: 1px solid var(--vp-c-brand-1) !important;
+  color: var(--vp-c-brand-1) !important;
+  border-radius: 3px !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  padding: 0.2rem 0.6rem !important;
+}
+
+/* Pull-quotes: style blockquotes with magazine-feel */
+.vp-doc blockquote {
+  margin: 2rem 0;
+  padding: 1.25rem 1.75rem;
+  border-left: 3px solid var(--vp-c-brand-1);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  font-family: 'Lora', Georgia, serif;
+}
+
+.vp-doc blockquote > p {
+  margin: 0;
+  color: var(--vp-c-text-1);
+  opacity: 0.9;
+}
+

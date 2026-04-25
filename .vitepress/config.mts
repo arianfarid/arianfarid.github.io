@@ -27,7 +27,29 @@ export default defineConfig({
       ['meta', { name: 'twitter:description', content: description }],
     )
   },
+  markdown: {
+    theme: {
+      light: 'github-light',
+      dark: 'one-dark-pro',
+    },
+    codeTransformers: [
+      {
+        span(node) {
+          const style = node.properties?.style
+          if (typeof style !== 'string') return
+          // github-light comments (#6a737d) → higher contrast
+          // catppuccin-mocha comments (#6c7086) → lighter
+          node.properties.style = style
+            .replace(/#6a737d/gi, '#4a5260')
+            .replace(/#7f848e/gi, '#a0a6b4')
+        }
+      }
+    ]
+  },
   head: [
+    ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+    ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap' }],
     ['link', { rel: 'icon', href: '/images/avatar.jpeg' }],
     ['meta', { name: 'author', content: 'Arian Farid' }],
     [
@@ -79,11 +101,10 @@ export default defineConfig({
     socialLinks: [
       { icon: "linkedin", link: "https://www.linkedin.com/in/arian-farid/" },
       { icon: 'github', link: 'https://github.com/arianfarid' },
-      { icon: "codeberg", link: "https://codeberg.org/arianfarid"},      
+      { icon: "codeberg", link: "https://codeberg.org/arianfarid"},
     ],
 
     footer: {
-      message: 'Built with VitePress',
       copyright: 'Copyright © 2026 Arian Farid'
     }
   }

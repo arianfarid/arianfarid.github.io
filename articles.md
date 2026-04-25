@@ -1,87 +1,43 @@
 ---
 title: "Articles by Arian Farid"
 description: "Articles and essays by Arian Farid on software engineering, systems design, and developer tooling."
-hideFrontMeta: true
-sidebar: false
+layout: page
 ---
-This page lists articles and essays written by **Arian Farid** on software engineering, systems design, developer tooling, and technical side projects. 
-New posts are added periodically and reflect my ongoing work and interests.
 
 <script setup>
 import { data } from '/articles/index.data.js'
-function formatDate(date) {
-    if (!date) return ''
-    return new Date(date).toLocaleDateString('en-UK', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    })
-}
 </script>
 
-<div style="list-style-type: none;">
-  <li v-for="post in data" :key="post.link">
-    <a :href="post.url"><h2>{{ post.frontmatter.title }}</h2></a>
-    <div style="margin-bottom: 16px; font-size: 0.95em;">{{ post.frontmatter.description }}</div>
-    <div style="margin-bottom: 16px; font-size: 0.875em; color: #6b7280; font-weight: 600;">
-      {{ formatDate(post.frontmatter.date) }}
-    </div>
-    <div class="tags" style="font-size: 0.875em; color: #6b7280; font-weight: 600;">
-      Tags:
-    <span class="tags-item" v-for="tag in post.frontmatter.tags">
-      <Badge>{{tag}}</Badge>
-    </span>
-    </div>
-  </li>
+<div class="articles-page">
+  <section class="articles-hero">
+    <h1>Articles</h1>
+  </section>
+
+  <div class="post-list">
+    <PostList :posts="data" />
+  </div>
 </div>
 
-
 <style scoped>
-.meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    gap: 1rem;
-}
-.meta-item {
-    display: flex;
-    gap: 0.25rem;
+.articles-page {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
 }
 
-
-.meta-item svg {
-    width: 1rem;
-    height: 1rem;
+.articles-hero {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  margin-bottom: 3rem;
 }
 
-.tags {
-    /* display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap; */
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    gap: 1rem;
-    line-height: 32px;
+.articles-hero h1 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  letter-spacing: -0.02em;
 }
 
-.tags-item {
-    /* display: flex; */
-    /* align-items: center; */
-    gap: 0.25rem;
-    text-align: center;
-}
-
-.tags-item svg {
-    width: 1rem;
-    height: 1rem;
-}
-:root {
-  --vp-home-hero-name-color: orange;
-}
 </style>

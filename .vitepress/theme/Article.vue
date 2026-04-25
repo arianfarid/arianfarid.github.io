@@ -1,9 +1,9 @@
 <script setup>
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch, nextTick } from 'vue'
 
-const { frontmatter } = useData()
+const { frontmatter, page } = useData()
 
 const { Layout, Content } = DefaultTheme
 
@@ -26,9 +26,38 @@ function estimateReadingTime(text) {
     }
 }
 const readingTime = ref()
-onMounted(async () => {
+
+async function updateReadingTime() {
+    await nextTick()
     const content = document.querySelector('.vp-doc')?.textContent || ''
     readingTime.value = estimateReadingTime(content)
+}
+
+onMounted(updateReadingTime)
+watch(() => page.value.relativePath, updateReadingTime)
+
+onMounted(() => {
+    const root = document.documentElement
+    const setPos = (x, y) => {
+        root.style.setProperty('--grain-x', `${x}px`)
+        root.style.setProperty('--grain-y', `${y}px`)
+    }
+    const show = () => {
+        root.style.transition = '--grain-intensity 0.1s ease-in'
+        root.style.setProperty('--grain-intensity', '1.0')
+    }
+    const hide = () => {
+        root.style.transition = '--grain-intensity 1.2s ease-out'
+        root.style.setProperty('--grain-intensity', '0')
+    }
+
+    window.addEventListener('touchstart', e => {
+        const t = e.touches[0]; setPos(t.clientX, t.clientY); show()
+    }, { passive: true })
+    window.addEventListener('touchmove', e => {
+        const t = e.touches[0]; setPos(t.clientX, t.clientY)
+    }, { passive: true })
+    window.addEventListener('touchend', hide)
 })
 </script>
 
@@ -91,7 +120,7 @@ onMounted(async () => {
     justify-content: center;
     align-items: center;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--vp-c-text-2);
     margin-bottom: 1.5rem;
     font-weight: 600;
     gap: 1rem;
@@ -126,7 +155,7 @@ onMounted(async () => {
     justify-content: flex-start;
     flex-wrap: wrap; */
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--vp-c-text-2);
     margin-bottom: 1.5rem;
     font-weight: 600;
     gap: 1rem;
