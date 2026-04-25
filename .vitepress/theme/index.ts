@@ -2,6 +2,7 @@ import DefaultTheme from 'vitepress/theme'
 import Article from './Article.vue'
 import PostList from './PostList.vue'
 import './custom.css'
+import './grain.css'
 
 export default {
   extends: DefaultTheme,
