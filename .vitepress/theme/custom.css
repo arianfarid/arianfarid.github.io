@@ -12,7 +12,14 @@
   --vp-c-brand-soft: rgba(232, 115, 42, 0.14);
 }
 
-/* Typography: Playfair Display for headings */
+/* Navbar title */
+.VPNavBarTitle .title {
+  font-family: 'Lora', Georgia, serif;
+  color: var(--vp-c-brand-1) !important;
+  font-weight: 600;
+}
+
+/* Typography: Lora for headings */
 .VPDoc h1,
 .vp-doc h2,
 .vp-doc h3,
@@ -28,6 +35,28 @@
     margin-right: -1.5rem;
     border-radius: 8px;
   }
+}
+
+/* ToC sidebar */
+.VPDocAsideOutline .title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.outline-link {
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  transition: color 0.15s ease;
+}
+
+.outline-link.active {
+  font-weight: 600;
+  color: var(--vp-c-brand-1) !important;
+  border-left: 2px solid var(--vp-c-brand-1);
+  padding-left: 0.5rem;
+  margin-left: -0.5rem;
 }
 
 /* Article tags: override VitePress Badge to match homepage tag style */
