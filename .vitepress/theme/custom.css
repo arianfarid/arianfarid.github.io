@@ -75,10 +75,21 @@ html:not(.dark) body::before {
   mask-image: radial-gradient(circle 220px at var(--grain-x, -999px) var(--grain-y, -999px), rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.1) 70%, transparent 100%);
 }
 
-/* iOS safe area */
+/* iOS safe area + always-visible sticky nav on mobile */
 .VPNav {
   padding-top: env(safe-area-inset-top);
   height: calc(var(--vp-nav-height) + env(safe-area-inset-top));
+}
+
+@media (max-width: 959px) {
+  .VPNav {
+    position: sticky !important;
+    top: 0 !important;
+  }
+
+  .VPLocalNav {
+    top: calc(var(--vp-nav-height) + env(safe-area-inset-top)) !important;
+  }
 }
 
 .VPLocalNav {
