@@ -31,7 +31,20 @@ export default defineConfig({
     theme: {
       light: 'github-light',
       dark: 'catppuccin-mocha',
-    }
+    },
+    codeTransformers: [
+      {
+        span(node) {
+          const style = node.properties?.style
+          if (typeof style !== 'string') return
+          // github-light comments (#6a737d) → higher contrast
+          // catppuccin-mocha comments (#6c7086) → lighter
+          node.properties.style = style
+            .replace(/#6a737d/gi, '#4a5260')
+            .replace(/#6c7086/gi, '#a0a4b8')
+        }
+      }
+    ]
   },
   head: [
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],

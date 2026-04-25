@@ -120,7 +120,7 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--vp-c-text-2);
     margin-bottom: 1.5rem;
     font-weight: 600;
     gap: 1rem;
@@ -155,7 +155,7 @@ onMounted(() => {
     justify-content: flex-start;
     flex-wrap: wrap; */
     font-size: 0.875rem;
-    color: #6b7280;
+    color: var(--vp-c-text-2);
     margin-bottom: 1.5rem;
     font-weight: 600;
     gap: 1rem;
