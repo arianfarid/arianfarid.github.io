@@ -44,7 +44,7 @@ onMounted(() => {
     }
     const show = () => {
         root.style.transition = '--grain-intensity 0.1s ease-in'
-        root.style.setProperty('--grain-intensity', '0.85')
+        root.style.setProperty('--grain-intensity', '1.0')
     }
     const hide = () => {
         root.style.transition = '--grain-intensity 1.2s ease-out'
