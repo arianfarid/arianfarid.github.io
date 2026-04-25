@@ -97,6 +97,20 @@ html:not(.dark) body::before {
   top: calc(var(--vp-nav-height) + env(safe-area-inset-top));
 }
 
+/* Footer */
+.VPFooter {
+  border-top: 1px solid var(--vp-c-brand-1) !important;
+  padding: 2rem 1.5rem !important;
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.8rem !important;
+  color: var(--vp-c-text-2) !important;
+  letter-spacing: 0.03em;
+}
+
 /* Navbar title */
 .VPNavBarTitle .title {
   font-family: 'Lora', Georgia, serif;
@@ -122,27 +136,6 @@ html:not(.dark) body::before {
   }
 }
 
-/* ToC sidebar */
-.VPDocAsideOutline .title {
-  font-family: 'Lora', Georgia, serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-.outline-link {
-  font-size: 0.8rem;
-  letter-spacing: 0.01em;
-  transition: color 0.15s ease;
-}
-
-.outline-link.active {
-  font-weight: 600;
-  color: var(--vp-c-brand-1) !important;
-  border-left: 2px solid var(--vp-c-brand-1);
-  padding-left: 0.5rem;
-  margin-left: -0.5rem;
-}
 
 /* Article tags: override VitePress Badge to match homepage tag style */
 .VPBadge {
@@ -174,3 +167,4 @@ html:not(.dark) body::before {
   color: var(--vp-c-text-1);
   opacity: 0.9;
 }
+

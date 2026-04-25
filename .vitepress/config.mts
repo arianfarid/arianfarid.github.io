@@ -94,11 +94,6 @@ export default defineConfig({
       { text: 'Articles', link: '/articles' },
     ],
 
-    outline: {
-      level: [2, 3],
-      label: 'Contents',
-    },
-
     search: {
       provider: 'local',
     },
@@ -106,11 +101,10 @@ export default defineConfig({
     socialLinks: [
       { icon: "linkedin", link: "https://www.linkedin.com/in/arian-farid/" },
       { icon: 'github', link: 'https://github.com/arianfarid' },
-      { icon: "codeberg", link: "https://codeberg.org/arianfarid"},      
+      { icon: "codeberg", link: "https://codeberg.org/arianfarid"},
     ],
 
     footer: {
-      message: 'Built with VitePress',
       copyright: 'Copyright © 2026 Arian Farid'
     }
   }
