@@ -3,6 +3,9 @@
   --vp-c-brand-2: #a84806;
   --vp-c-brand-3: #e8712a;
   --vp-c-brand-soft: rgba(196, 85, 8, 0.12);
+  --vp-c-bg: #f0ede8;
+  --vp-c-bg-alt: #e8e4de;
+  --vp-c-bg-soft: #e8e4de;
 }
 
 .dark {
@@ -10,6 +13,22 @@
   --vp-c-brand-2: #d4621e;
   --vp-c-brand-3: #f4a06a;
   --vp-c-brand-soft: rgba(232, 115, 42, 0.14);
+  --vp-c-bg: #1a1714;
+  --vp-c-bg-alt: #141210;
+  --vp-c-bg-soft: #1f1c18;
+}
+
+/* Film grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
 }
 
 /* Navbar title */
