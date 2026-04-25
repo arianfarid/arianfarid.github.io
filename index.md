@@ -38,9 +38,8 @@ import { data } from '/articles/latest.data.js'
 }
 
 .hero {
-  padding-bottom: 3rem;
-  border-bottom: 1px solid var(--vp-c-divider);
-  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .hero-name {
@@ -93,7 +92,7 @@ import { data } from '/articles/latest.data.js'
 
 .posts-label {
   font-family: 'Lora', Georgia, serif;
-  font-size: 1.1rem;
+  font-size: 1.75rem;
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin: 0 0 1.25rem;
