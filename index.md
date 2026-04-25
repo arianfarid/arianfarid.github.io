@@ -1,97 +1,183 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
-layout: home
-
-hero:
-  name: "Arian Farid"
-  tagline: Senior Software Developer
+layout: page
 ---
 
 <script setup>
 import { data } from '/articles/latest.data.js'
-const members = [
-  {
-    avatar: '/assets/avatar.jpeg',
-    name: 'Arian Farid',
-    title: 'Software Developer',
-    links: [
-    ]
-  },
-]
+
+function formatDate(date) {
+  if (!date) return ''
+  return new Date(date).toLocaleDateString('en-UK', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
 </script>
-<!-- <VPTeamMembers size="small" :members /> -->
-# Arian Farid
 
-I’m Arian Farid, a senior software developer with over a decade of experience building production software. Formerly a PhD-trained biologist, I bring a systems-oriented mindset and a deep interest in complex systems to software engineering.
-This blog is a creative outlet for projects, technical or otherwise, that I find interesting. You can find me on [Linkedin](https://www.linkedin.com/in/arian-farid/), [GitHub](https://github.com/arianfarid), and [Codeberg](https://codeberg.org/arianfarid).
+<div class="home">
+  <section class="hero">
+    <h1 class="hero-name">Arian Farid</h1>
+    <p class="hero-role">Senior Software Developer · PhD Biologist</p>
+    <p class="hero-bio">
+      Writing about software systems, algorithms, and the occasional intersection with biology.
+      Over a decade building production software with a systems-oriented mindset.
+    </p>
+    <nav class="hero-links">
+      <a href="/about">About</a>
+      <span class="sep">·</span>
+      <a href="https://www.linkedin.com/in/arian-farid/" target="_blank" rel="noopener">LinkedIn</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/arianfarid" target="_blank" rel="noopener">GitHub</a>
+      <span class="sep">·</span>
+      <a href="https://codeberg.org/arianfarid" target="_blank" rel="noopener">Codeberg</a>
+    </nav>
+  </section>
 
-# Latest posts
-<div style="list-style-type: none;">
-  <li v-for="post in data" :key="post.link">
-    <a :href="post.url"><h2>{{ post.frontmatter.title }}</h2></a>
-    <div style="font-size: 0.95em; margin-bottom: 16px;">{{ post.frontmatter.description }}</div>
-    <div class="meta meta-item" style="font-size: 0.875em; color: #666; margin-bottom: 16px;">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round"
-              d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
-      </svg>
-      {{ post.frontmatter.date }}
+  <section class="posts">
+    <h2 class="posts-label">Writing</h2>
+    <div class="post-list">
+      <a v-for="post in data" :key="post.url" :href="post.url" class="post-card">
+        <span class="post-date">{{ formatDate(post.frontmatter.date) }}</span>
+        <h3 class="post-title">{{ post.frontmatter.title }}</h3>
+        <p class="post-desc">{{ post.frontmatter.description }}</p>
+        <div class="post-tags" v-if="post.frontmatter.tags?.length">
+          <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">{{ tag }}</span>
+        </div>
+      </a>
     </div>
-    <div class="tags">
-      Tags: 
-      <span  class="tags-item" v-for="tag in post.frontmatter.tags">
-        <Badge>{{tag}}</Badge>
-      </span>
-    </div>
-  </li>
+  </section>
 </div>
 
 <style scoped>
-.meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    gap: 1rem;
-}
-.meta-item {
-    display: flex;
-    gap: 0.25rem;
+.home {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
 }
 
-
-.meta-item svg {
-    width: 1rem;
-    height: 1rem;
+.hero {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  margin-bottom: 3rem;
 }
 
-.tags {
-    /* display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap; */
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-bottom: 1.5rem;
-    font-weight: 600;
-    gap: 1rem;
-    line-height: 32px;
+.hero-name {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 0.6rem;
+  color: var(--vp-c-text-1);
+  letter-spacing: -0.02em;
 }
 
-.tags-item {
-    /* display: flex; */
-    /* align-items: center; */
-    gap: 0.25rem;
-    text-align: center;
+.hero-role {
+  font-size: 0.95rem;
+  color: var(--vp-c-text-2);
+  margin: 0 0 1.25rem;
+  letter-spacing: 0.02em;
 }
 
-.tags-item svg {
-    width: 1rem;
-    height: 1rem;
+.hero-bio {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--vp-c-text-1);
+  max-width: 560px;
+  margin: 0 0 1.5rem;
 }
-:root {
-  --vp-home-hero-name-color: orange;
+
+.hero-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-links a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.hero-links a:hover {
+  text-decoration: underline;
+}
+
+.sep {
+  color: var(--vp-c-text-3);
+  user-select: none;
+}
+
+.posts-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vp-c-brand-1);
+  margin: 0 0 1.25rem;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-card {
+  display: block;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--vp-c-divider);
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.15s ease;
+}
+
+.post-card:first-child {
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.post-card:hover {
+  opacity: 0.65;
+}
+
+.post-date {
+  display: block;
+  font-size: 0.775rem;
+  color: var(--vp-c-text-3);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.4rem;
+}
+
+.post-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 0.45rem;
+  color: var(--vp-c-text-1);
+}
+
+.post-desc {
+  font-size: 0.9rem;
+  color: var(--vp-c-text-2);
+  line-height: 1.65;
+  margin: 0 0 0.8rem;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
 }
 </style>

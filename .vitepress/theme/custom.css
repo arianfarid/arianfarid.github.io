@@ -1,4 +1,49 @@
 :root {
-    /* --vp-home-hero-name-color: #c45508;
-    --vp-c-brand-1: #c45508; */
+  --vp-c-brand-1: #c45508;
+  --vp-c-brand-2: #a84806;
+  --vp-c-brand-3: #e8712a;
+  --vp-c-brand-soft: rgba(196, 85, 8, 0.12);
+}
+
+.dark {
+  --vp-c-brand-1: #e8732a;
+  --vp-c-brand-2: #d4621e;
+  --vp-c-brand-3: #f4a06a;
+  --vp-c-brand-soft: rgba(232, 115, 42, 0.14);
+}
+
+/* Typography: Playfair Display for headings */
+.VPDoc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4 {
+  font-family: 'Lora', Georgia, serif;
+  letter-spacing: -0.01em;
+}
+
+/* Article layout: code blocks bleed past the content column */
+@media (min-width: 640px) {
+  .vp-doc div[class*='language-'] {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    border-radius: 8px;
   }
+}
+
+/* Pull-quotes: style blockquotes with magazine-feel */
+.vp-doc blockquote {
+  margin: 2rem 0;
+  padding: 1.25rem 1.75rem;
+  border-left: 3px solid var(--vp-c-brand-1);
+  background: var(--vp-c-bg-soft);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  font-size: 1.05rem;
+  font-family: 'Lora', Georgia, serif;
+}
+
+.vp-doc blockquote > p {
+  margin: 0;
+  color: var(--vp-c-text-1);
+  opacity: 0.9;
+}
