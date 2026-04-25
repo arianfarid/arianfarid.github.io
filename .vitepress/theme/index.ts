@@ -1,12 +1,14 @@
 import DefaultTheme from 'vitepress/theme'
 import Article from './Article.vue'
-import './custom.css' // or './style.css'
+import PostList from './PostList.vue'
+import './custom.css'
 
 export default {
   extends: DefaultTheme,
-  // override the Layout with a wrapper component that
-  // injects the slots
   Layout: Article,
+  enhanceApp({ app }) {
+    app.component('PostList', PostList)
+  },
 //   enhanceApp({ app }) {
 //     // register your custom global components
 //     app.component('MyGlobalComponent' /* ... */)
