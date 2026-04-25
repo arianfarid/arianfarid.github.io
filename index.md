@@ -11,8 +11,7 @@ import { data } from '/articles/latest.data.js'
     <h1 class="hero-name">Arian Farid</h1>
     <p class="hero-role">Senior Software Developer · PhD Mycologist</p>
     <p class="hero-bio">
-      Writing about software systems, algorithms, and the occasional intersection with biology.
-      Over a decade building production software with a systems-oriented mindset.
+      Writing about programming and the occasional tangent into biology. Based in Tampa.
     </p>
     <nav class="hero-links">
       <a href="/about">About</a>
