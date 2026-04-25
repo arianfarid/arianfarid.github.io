@@ -1,9 +1,9 @@
 <script setup>
 import { useData } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch, nextTick } from 'vue'
 
-const { frontmatter } = useData()
+const { frontmatter, page } = useData()
 
 const { Layout, Content } = DefaultTheme
 
@@ -26,10 +26,15 @@ function estimateReadingTime(text) {
     }
 }
 const readingTime = ref()
-onMounted(async () => {
+
+async function updateReadingTime() {
+    await nextTick()
     const content = document.querySelector('.vp-doc')?.textContent || ''
     readingTime.value = estimateReadingTime(content)
-})
+}
+
+onMounted(updateReadingTime)
+watch(() => page.value.relativePath, updateReadingTime)
 </script>
 
 <template>
