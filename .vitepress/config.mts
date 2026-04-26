@@ -5,6 +5,9 @@ export default defineConfig({
   title: "Arian Farid",
   cleanUrls: true,
   description: "Arian Farid's personal website and blog covering software development and complex systems.",
+  sitemap: {
+    hostname: 'https://arianfarid.me',
+  },
   transformPageData(pageData) {
     const path = pageData.relativePath
       .replace(/index\.md$/, '')
@@ -12,20 +15,46 @@ export default defineConfig({
     const canonicalUrl = path ? `https://arianfarid.me/${path}` : 'https://arianfarid.me/'
     const title = pageData.frontmatter.title || 'Arian Farid'
     const description = pageData.frontmatter.description || "Arian Farid's personal website and blog covering software development and complex systems."
-    const ogType = pageData.relativePath.startsWith('articles/') ? 'article' : 'website'
+    const isArticle = pageData.relativePath.startsWith('articles/')
+    const ogType = isArticle ? 'article' : 'website'
+    const ogImage = 'https://arianfarid.me/images/avatar.jpeg'
 
     pageData.frontmatter.head ??= []
     pageData.frontmatter.head.push(
       ['link', { rel: 'canonical', href: canonicalUrl }],
+      ['meta', { property: 'og:site_name', content: 'Arian Farid' }],
       ['meta', { property: 'og:url', content: canonicalUrl }],
       ['meta', { property: 'og:title', content: title }],
       ['meta', { property: 'og:description', content: description }],
       ['meta', { property: 'og:type', content: ogType }],
-      ['meta', { property: 'og:image', content: 'https://arianfarid.me/images/avatar.jpeg' }],
+      ['meta', { property: 'og:image', content: ogImage }],
       ['meta', { name: 'twitter:card', content: 'summary' }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
+      ['meta', { name: 'twitter:image', content: ogImage }],
     )
+
+    if (isArticle && pageData.frontmatter.title) {
+      pageData.frontmatter.head.push([
+        'script',
+        { type: 'application/ld+json' },
+        JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: pageData.frontmatter.title,
+          description: pageData.frontmatter.description || description,
+          url: canonicalUrl,
+          image: ogImage,
+          datePublished: pageData.frontmatter.date,
+          author: {
+            '@type': 'Person',
+            name: 'Arian Farid',
+            url: 'https://arianfarid.me',
+          },
+          keywords: pageData.frontmatter.tags?.join(', '),
+        }),
+      ])
+    }
   },
   markdown: {
     theme: {
@@ -52,6 +81,7 @@ export default defineConfig({
     ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&display=swap' }],
     ['link', { rel: 'icon', href: '/images/avatar.jpeg' }],
     ['meta', { name: 'author', content: 'Arian Farid' }],
+    ['meta', { name: 'theme-color', content: '#A33020' }],
     [
       'script',
       { type: 'application/ld+json' },
