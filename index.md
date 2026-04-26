@@ -9,7 +9,7 @@ import { data } from '/articles/latest.data.js'
 <div class="home">
   <section class="hero">
     <h1 class="hero-name">Arian Farid</h1>
-    <p class="hero-role">Senior Software Developer · PhD Mycologist</p>
+    <p class="hero-role">Senior Software Developer · PhD</p>
     <p class="hero-bio">
       Writing about programming and the occasional tangent into biology. Based in Tampa.
     </p>

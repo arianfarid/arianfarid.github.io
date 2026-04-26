@@ -10,7 +10,7 @@ layout: page
 
 # Arian Farid
 
-Senior Software Developer · PhD Mycologist
+Senior Software Developer · PhD
 
 </section>
 
