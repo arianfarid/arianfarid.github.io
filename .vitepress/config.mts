@@ -1,7 +1,26 @@
 import { createContentLoader, defineConfig } from 'vitepress'
 import { Feed } from 'feed'
-import { writeFileSync } from 'fs'
+import { writeFileSync, readdirSync, readFileSync } from 'fs'
 import { resolve } from 'path'
+
+function getExcludedArticleSlugs(): Set<string> {
+  const dir = resolve(__dirname, '../articles')
+  const slugs = new Set<string>()
+  for (const file of readdirSync(dir).filter(f => f.endsWith('.md'))) {
+    const content = readFileSync(resolve(dir, file), 'utf-8')
+    const match = content.match(/^---\n([\s\S]*?)\n---/)
+    if (!match) continue
+    const fm = match[1]
+    const listed = fm.match(/^listed:\s*(.+)$/m)?.[1]?.trim()
+    const draft = fm.match(/^draft:\s*(.+)$/m)?.[1]?.trim()
+    if (listed === 'false' || draft === 'true') {
+      slugs.add(file.replace(/\.md$/, ''))
+    }
+  }
+  return slugs
+}
+
+const excludedSlugs = getExcludedArticleSlugs()
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -11,7 +30,9 @@ export default defineConfig({
   sitemap: {
     hostname: 'https://arianfarid.me',
     transformItems(items) {
-      return items.map(item => ({ ...item, lastmod: new Date().toISOString() }))
+      return items
+        .filter(item => ![...excludedSlugs].some(slug => item.url.includes(slug)))
+        .map(item => ({ ...item, lastmod: new Date().toISOString() }))
     },
   },
   buildEnd: async (config) => {
