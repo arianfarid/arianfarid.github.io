@@ -15,8 +15,12 @@ tags:
   - Compression
   - Bitwise
   - Bioinformatics 
-search: false   
+search: false
 listed: false
+head:
+  - - meta
+    - name: robots
+      content: noindex
 
 ---
 <!-- 
