@@ -796,6 +796,13 @@ estree-walker@^2.0.2:
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
   integrity sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==
 
+feed@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/feed/-/feed-5.2.1.tgz#9522d98fac185b1f2ea72d7f16e1395da8449a91"
+  integrity sha512-jTynzYPWs9ALjro0GW8j7sv9y7cJBeOdD4Y88kVqYy/eyusIX3g+499JiTDIlD9Ge/unebx57T4Uzo6vpYvMtA==
+  dependencies:
+    xml-js "^1.6.11"
+
 focus-trap@^7.6.4:
   version "7.6.5"
   resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-7.6.5.tgz#56f0814286d43c1a2688e9bc4f31f17ae047fb76"
@@ -1012,6 +1019,11 @@ rollup@^4.20.0:
     "@rollup/rollup-win32-x64-msvc" "4.43.0"
     fsevents "~2.3.2"
 
+sax@^1.2.4:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/sax/-/sax-1.6.0.tgz#da59637629307b97e7c4cb28e080a7bc38560d5b"
+  integrity sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==
+
 shiki@^2.1.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/shiki/-/shiki-2.5.0.tgz#09d01ebf3b0b06580431ce3ddc023320442cf223"
@@ -1165,6 +1177,13 @@ vue@^3.5.13:
     "@vue/runtime-dom" "3.5.17"
     "@vue/server-renderer" "3.5.17"
     "@vue/shared" "3.5.17"
+
+xml-js@^1.6.11:
+  version "1.6.11"
+  resolved "https://registry.yarnpkg.com/xml-js/-/xml-js-1.6.11.tgz#927d2f6947f7f1c19a316dd8eea3614e8b18f8e9"
+  integrity sha512-7rVi2KMfwfWFl+GpPg6m80IVMWXLRjO+PxTq7V2CDhoGak0wzYzFgUY2m4XJ47OGdXd8eLE8EmwfAmdjw7lC1g==
+  dependencies:
+    sax "^1.2.4"
 
 zwitch@^2.0.4:
   version "2.0.4"

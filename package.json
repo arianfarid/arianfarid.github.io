@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "feed": "^5.2.1",
     "vitepress": "^1.6.3"
   },
   "scripts": {

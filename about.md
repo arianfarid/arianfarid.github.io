@@ -1,6 +1,6 @@
 ---
 title: "About Arian Farid"
-description: "Arian Farid's personal blog."
+description: "Senior software developer and biologist with a PhD, writing about Rust, Golang, JavaScript, TypeScript, PHP, and complex systems."
 layout: page
 ---
 
