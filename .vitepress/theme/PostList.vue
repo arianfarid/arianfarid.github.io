@@ -20,7 +20,7 @@ function formatDate(date) {
   <div class="post-list">
     <div v-for="post in posts" :key="post.url" class="post-card">
       <span class="post-date">{{ formatDate(post.frontmatter.date) }}</span>
-      <h2 class="post-title"><a :href="post.url">{{ post.frontmatter.title }}</a></h2>
+      <h3 class="post-title"><a :href="post.url">{{ post.frontmatter.title }}</a></h3>
       <p class="post-desc">{{ post.frontmatter.description }}</p>
       <div class="post-tags" v-if="post.frontmatter.tags?.length">
         <span v-for="tag in post.frontmatter.tags" :key="tag" class="tag">{{ tag }}</span>

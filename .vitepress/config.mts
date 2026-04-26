@@ -74,6 +74,8 @@ export default defineConfig({
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
       ['meta', { name: 'twitter:image', content: ogImage }],
+      ['meta', { name: 'twitter:image:alt', content: title }],
+      ['meta', { property: 'og:locale', content: 'en_US' }],
     )
 
     if (isArticle && pageData.frontmatter.title) {
@@ -88,6 +90,7 @@ export default defineConfig({
           url: canonicalUrl,
           image: ogImage,
           datePublished: pageData.frontmatter.date,
+          dateModified: pageData.frontmatter.date,
           author: {
             '@type': 'Person',
             name: 'Arian Farid',
