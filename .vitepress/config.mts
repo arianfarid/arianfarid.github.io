@@ -10,6 +10,9 @@ export default defineConfig({
   description: "Arian Farid's personal website and blog covering software development and complex systems.",
   sitemap: {
     hostname: 'https://arianfarid.me',
+    transformItems(items) {
+      return items.map(item => ({ ...item, lastmod: new Date().toISOString() }))
+    },
   },
   buildEnd: async (config) => {
     const feed = new Feed({
