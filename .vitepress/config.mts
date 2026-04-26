@@ -68,6 +68,8 @@ export default defineConfig({
       ['meta', { property: 'og:description', content: description }],
       ['meta', { property: 'og:type', content: ogType }],
       ['meta', { property: 'og:image', content: ogImage }],
+      ['meta', { property: 'og:image:width', content: '560' }],
+      ['meta', { property: 'og:image:height', content: '560' }],
       ['meta', { name: 'twitter:card', content: 'summary' }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
@@ -136,7 +138,8 @@ export default defineConfig({
           'https://github.com/arianfarid',
           'https://codeberg.org/arianfarid',
           'https://www.linkedin.com/in/arian-farid/',
-          'https://orcid.org/0000-0002-9829-1306'
+          'https://orcid.org/0000-0002-9829-1306',
+          'https://bsky.app/profile/arianfarid.bsky.social'
         ],
         jobTitle: 'Senior Software Developer',
         alumniOf:[ 
