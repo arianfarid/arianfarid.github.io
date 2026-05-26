@@ -11,7 +11,7 @@ import { data } from '/articles/latest.data.js'
     <h1 class="hero-name">Arian Farid</h1>
     <p class="hero-role">Senior Software Developer · PhD</p>
     <p class="hero-bio">
-      Writing about programming and the occasional tangent into biology. Based in Tampa.
+        I am a senior software engineer with experience across multiple domains. 
     </p>
     <nav class="hero-links">
       <a href="/about">About</a>
