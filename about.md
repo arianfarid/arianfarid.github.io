@@ -36,7 +36,7 @@ You can reach me on [LinkedIn](https://www.linkedin.com/in/arian-farid/) or find
 
 `sqlite-fastx` is a SQLite extension that enables querying FASTA/FASTQ genomic sequence files. 
 
-Written in Rust, it uses virtual tables (via `sqlite3_ext`) to enable pushdown filtering, gzip decompression, indexed lookups, and a toolset for bioinformatics like `gc_content()`, `n50()`, and `reverse_complement()`.
+Written in Rust, it uses virtual tables (via `sqlite3_ext`) to enable pushdown filtering, gzip decompression, and indexed lookups. It also provides a suite of bioinformatics functions, like `gc_content()`, `n50()`, and `reverse_complement()`.
 
 </section>
 
