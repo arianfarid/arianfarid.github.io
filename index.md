@@ -8,20 +8,23 @@ import { data } from '/articles/latest.data.js'
 
 <div class="home">
   <section class="hero">
-    <h1 class="hero-name">Arian Farid</h1>
-    <p class="hero-role">Senior Software Developer · PhD</p>
-    <p class="hero-bio">
-        I am a senior software developer with experience across multiple domains. 
-    </p>
-    <nav class="hero-links">
-      <a href="/about">About</a>
-      <span class="sep">·</span>
-      <a href="https://www.linkedin.com/in/arian-farid/" target="_blank" rel="noopener">LinkedIn</a>
-      <span class="sep">·</span>
-      <a href="https://github.com/arianfarid" target="_blank" rel="noopener">GitHub</a>
-      <span class="sep">·</span>
-      <a href="https://codeberg.org/arianfarid" target="_blank" rel="noopener">Codeberg</a>
-    </nav>
+    <img class="hero-avatar" src="/images/avatar.jpeg" alt="Arian Farid" />
+    <div class="hero-text">
+      <h1 class="hero-name">Arian Farid</h1>
+      <p class="hero-role">Senior Software Developer · PhD</p>
+      <p class="hero-bio">
+          I am a senior software developer with experience across multiple domains. 
+      </p>
+      <nav class="hero-links">
+        <a href="/about">About</a>
+        <span class="sep">·</span>
+        <a href="https://www.linkedin.com/in/arian-farid/" target="_blank" rel="noopener">LinkedIn</a>
+        <span class="sep">·</span>
+        <a href="https://github.com/arianfarid" target="_blank" rel="noopener">GitHub</a>
+        <span class="sep">·</span>
+        <a href="https://codeberg.org/arianfarid" target="_blank" rel="noopener">Codeberg</a>
+      </nav>
+    </div>
   </section>
 
   <section class="posts">
@@ -38,8 +41,38 @@ import { data } from '/articles/latest.data.js'
 }
 
 .hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
   padding-bottom: 2rem;
   margin-bottom: 2rem;
+}
+
+.hero-avatar {
+  width: 148px;
+  height: 148px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 540px) {
+  .hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .hero-avatar {
+    width: 88px;
+    height: 88px;
+  }
 }
 
 .hero-name {
