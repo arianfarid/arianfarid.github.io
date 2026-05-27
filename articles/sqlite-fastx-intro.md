@@ -74,6 +74,7 @@ This method, if called, is called following `xBestIndex`. It is responsible for 
 The goal of `sqlite-fastx` is to provide a SQLite extension that enables bioinformaticists, molecular biologists, and data engineers to efficiently query FASTA/FASTQ. 
 
 It should
+- maximize queries with pushdown filters
 - use `.fai` when possible
 - allow parsing gzipped fasta files
 - expose useful functions
@@ -88,6 +89,8 @@ I chose `sqlite3_ext` for a few reasons. It provides loadable extensions out of 
 There are a few other notable options for creating extensions in rust.
 
 - Manually, using `ffi` bindings. More time consuming on my end.
-- Some crates, such as `rustqlite`, support creating loadable extensions, but these seem to be geared more towards embedding SQLite, not creating loadable extensions.
+- Some crates, such as `rustqlite` or `sqlx`, support creating loadable extensions, but these seem to be geared more towards embedding SQLite, not creating loadable extensions.
 - The `sqlite-loadable-rs` crate provides a very convenient framework for creating loadable extensions, but is more limited in scope.
 TODO: Provide links
+
+##
