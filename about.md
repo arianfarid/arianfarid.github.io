@@ -18,11 +18,15 @@ Senior Software Developer · PhD
 
 I'm a senior software developer based in Tampa, FL.
 
-Before my PhD I worked as a developer at the University of South Florida, building web mapping applications, serving GIS data, and shipping a hybrid mobile app for the National Park Service. I also worked with the USF Herbarium on a species catalog of the campus flora and fungi. I earned my PhD in Mycology from USF studying fungal systematics, kept programming throughout, and came back to software full-time after graduating.
+My career started as a developer at the University of South Florida. I worked on a diverse set of tasks, including building web mapping applications, serving GIS data, and shipping hybrid mobile application for the National Park Service. I also worked with the USF Herbarium on a developing a species catalog of the campus flora and fungi. 
 
-These days I work as a full-stack engineer on B2B SaaS. Outside of that I spend most of my time writing Rust and Golang.
+I earned my PhD in Molecular Biology from USF in 2021. I researched molecular phylogenetics and systematics of the boletes. Throughout my degree, I kept writing programs, but this time on the analytical side of software. After graduating, I came back to work in software full-time.
 
-This blog is a mix of things: projects I find interesting, ideas worth writing out, and topics from software or biology I want to explain to a general audience. I also rock climb and run.
+Currently, I work as a full-stack engineer on B2B SaaS. Outside of that I spend most of my time writing Rust and Golang.
+
+This blog is a mix of things: projects I find interesting, ideas worth writing out, and topics from software or biology I want to explain to a general audience. 
+
+I also rock climb and run!
 
 You can reach me on [LinkedIn](https://www.linkedin.com/in/arian-farid/) or find my code on [GitHub](https://github.com/arianfarid) and [Codeberg](https://codeberg.org/arianfarid).
 
