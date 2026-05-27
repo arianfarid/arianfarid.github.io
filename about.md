@@ -28,7 +28,19 @@ You can reach me on [LinkedIn](https://www.linkedin.com/in/arian-farid/) or find
 
 </section>
 
-<section class="publications">
+<section class="subsection">
+
+## Projects
+
+### **[`sqlite-fastx`](https://github.com/arianfarid/sqlite-fastx)**
+
+`sqlite-fastx` is a SQLite extension that enables querying FASTA/FASTQ genomic sequence files. 
+
+Written in Rust, it uses virtual tables (via `sqlite3_ext`) to enable pushdown filtering, gzip decompression, indexed lookups, and a toolset for bioinformatics like `gc_content()`, `n50()`, and `reverse_complement()`.
+
+</section>
+
+<section class="subsection">
 
 ## Publications
 
@@ -109,37 +121,61 @@ You can reach me on [LinkedIn](https://www.linkedin.com/in/arian-farid/) or find
 }
 
 .about-body a,
-.publications a {
+.subsection a {
   color: var(--vp-c-brand-1);
   text-decoration: none;
 }
 
 .about-body a:hover,
-.publications a:hover {
+.subsection a:hover {
   text-decoration: underline;
 }
 
-.publications h2 {
+.subsection {
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  margin-bottom: 3rem;
+}
+
+.subsection h3 {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+}
+
+.subsection p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--vp-c-text-1);
+  margin-bottom: 1.25rem;
+}
+
+.subsection p:last-child {
+  margin-bottom: 0;
+}
+
+.subsection h2 {
   font-family: 'Lora', Georgia, serif;
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
 }
 
-.publications ol {
+.subsection ol {
   padding-left: 1.25rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 }
 
-.publications li {
+.subsection li {
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--vp-c-text-1);
 }
 
-.publications li a {
+.subsection li a {
   font-size: 0.85rem;
   color: var(--vp-c-brand-1);
 }
