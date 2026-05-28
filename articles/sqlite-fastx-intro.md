@@ -93,4 +93,175 @@ There are a few other notable options for creating extensions in rust.
 - The `sqlite-loadable-rs` crate provides a very convenient framework for creating loadable extensions, but is more limited in scope.
 TODO: Provide links
 
-##
+## The Code
+
+This section serves as a broad overview of how this extension was implemented. 
+
+### The reader/cursor
+
+The FASTA and FASTQ cursors share very similar implementations. 
+
+A sequence record trait
+
+```rust
+pub trait SequenceRecord: Clone {
+    fn identifier_bytes(&self) -> &[u8];
+    fn description_bytes(&self) -> Option<&[u8]>;
+    fn sequence_bytes(&self) -> &[u8];
+    fn quality_bytes(&self) -> Option<&[u8]>;
+}
+```
+
+and reader
+
+```rust
+pub trait SequenceReader {
+    type Record: SequenceRecord;
+    fn next(&mut self) -> Option<Result<Self::Record>>;
+    fn lookup_offset(_fai_path: &str, _id: &str) -> Option<u64> {
+        None
+    }
+}
+```
+
+both define interfaces for iterating through fastx records. The `pub struct SequenceCursor<R: SequenceReader>` holds fields such as the `.fai` path, `table_name`, and other fields that are required during query excution. It takes any generic with the `SequenceReader` trait. This allows for custom logic when designing specific modules.
+
+The `SequenceCursor` method `determine_strategy` determines if a corresponding `.fai` file exists and if any equality conditions exist on the sequence id field. If so, it will use it to seek the reader to the offset, avoiding scanning the entire file.
+
+### The `fasta` module
+
+For brevity, I will only overview the `fasta` module.  `fastq` shares many implementation details, though additional logic for sequence quality scores have also been implemented.
+
+`sqlite3_ext` provides convenient virtual table traits that enable us to implement required methods for virtual table creation.
+
+#### `create`
+
+This is synonymous with `xCreate`. 
+
+In the `fasta` module, we do two things here: define metadata (get filename, check if a `.fai` exists) and register the virtual table schema with SQLite.
+
+```sql
+CREATE TABLE x(
+    id TEXT,
+    description TEXT,
+    sequence TEXT,
+    length INTEGER,
+    gc_content REAL,
+    filename TEXT HIDDEN
+)
+```
+
+#### `best_index`
+
+This is synonymous with `xBestIndex`.
+
+Best index is where the query plan is determined. `sqlite-fastx` iterates on each constraint in the query, and builds an `index_str`. 
+
+```rust
+if constraint.usable() {
+    match Columns::try_from(constraint.column())
+        .map_err(|_| Error::from("column index out of range"))?
+    {
+        Columns::ID => match constraint.op() {
+            ConstraintOp::Like => usable.push((i, ("id", constraint.op()))),
+            ConstraintOp::Eq => usable.push((i, ("id", constraint.op()))),
+            _ => {}
+        },
+        #[allow(clippy::single_match)]
+        Columns::Description => match constraint.op() {
+            ConstraintOp::Like => usable.push((i, ("description", constraint.op()))),
+            _ => {}
+        },
+        Columns::Sequence => {
+            #[allow(clippy::single_match)]
+            match constraint.op() {
+                ConstraintOp::Like => usable.push((i, ("sequence", constraint.op()))),
+                _ => {} //No op
+            }
+        }
+        Columns::Length => match constraint.op() {
+            ConstraintOp::GT
+            | ConstraintOp::GE
+            | ConstraintOp::LT
+            | ConstraintOp::LE
+            | ConstraintOp::Eq => {
+                usable.push((i, ("length", constraint.op())));
+            }
+            _ => {}
+        },
+        Columns::GCContent => match constraint.op() {
+            ConstraintOp::GT
+            | ConstraintOp::GE
+            | ConstraintOp::LT
+            | ConstraintOp::LE
+            | ConstraintOp::Eq => {
+                usable.push((i, ("gc_content", constraint.op())));
+            }
+            _ => {}
+        },
+        _ => {}
+    }
+}
+```
+
+The column name and comparison operators (`>`, `=`, `LIKE`, etc.) are pushed to a `Vec`. After we have evaluated every usable constraint:
+
+```rust
+if !usable.is_empty() {
+    let mut constraints: Vec<_> = index_info.constraints().collect();
+    
+    let descriptor = usable
+        .iter()
+        .enumerate()
+        .map(|(i, c)| {
+            constraints[c.0].set_argv_index(Some(i as u32));
+            constraints[c.0].set_omit(true);
+            let op_str = match c.1.1 {
+                ConstraintOp::GT => CompareOp::Gt.as_str(),
+                ConstraintOp::GE => CompareOp::Ge.as_str(),
+                ConstraintOp::LT => CompareOp::Lt.as_str(),
+                ConstraintOp::LE => CompareOp::Le.as_str(),
+                ConstraintOp::Eq => CompareOp::Eq.as_str(),
+                ConstraintOp::Like => "Like",
+                _ => "Scan",
+            };
+            let col_str = c.1.0;
+            [col_str, op_str].join(":")
+        })
+        .collect::<Vec<_>>()
+        .join(",");
+    index_info.set_index_str(Some(descriptor.as_str()))?;
+}
+```
+
+a representation of our plan is built. 
+
+The query 
+
+```sql
+SELECT id FROM sequences WHERE sequence LIKE 'ACGT%' AND length > 300;
+```
+
+will generate the following plan:
+
+```rust
+let descriptor = 'sequence:Like;length:Gt';
+```
+
+#### `filter`
+
+This is synonymous with `xFilter`.
+
+Here, we determine our reading strategy from creation/connecting to the virtual table. If we are provided a relevant offset via `.fai`, we can seek to this position (and save valuable time parsing potentially very large files). Otherwise, it is a full table scan.
+
+### Optimizations
+
+#### Sequence Contains using `memchr`
+
+In local testing (M2 Macbook Pro) using `memchr` for raw substring search, I found a ~35x speed up on a 10k bp dataset. This translated to about a 5x speedup at query time (I/O, parsing costs lower some of the gains).
+
+```rust
+SequenceOp::Contains => memchr::memmem::find(&val, self.pattern.as_bytes()).is_some(),
+```
+
+`memchr` improves scanning by leveraging hardware to accelerate scans. One technique is SIMD (Single Instruction, Multiple Data), which allows multiple bytes (16, 32, 64, etc.) to be compared at once.
