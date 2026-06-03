@@ -265,3 +265,5 @@ SequenceOp::Contains => memchr::memmem::find(&val, self.pattern.as_bytes()).is_s
 ```
 
 `memchr` improves scanning by leveraging hardware to accelerate scans. One technique is SIMD (Single Instruction, Multiple Data), which allows multiple bytes (16, 32, 64, etc.) to be compared at once.
+
+#### Pushdown Filters
