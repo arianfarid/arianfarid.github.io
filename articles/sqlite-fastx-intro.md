@@ -254,9 +254,24 @@ This is synonymous with `xFilter`.
 
 Here, we determine our reading strategy from creation/connecting to the virtual table. If we are provided a relevant offset via `.fai`, we can seek to this position (and save valuable time parsing potentially very large files). Otherwise, it is a full table scan.
 
-### Optimizations
+## Optimizations
 
-#### Sequence Contains using `memchr`
+### Pushdown Filters
+
+Without defining pushdown filters (registered via `xFilter` or `filter` in `sqlite3_ext`), SQLite will perform a full scan of the source file before filtering the data by the `WHERE` clauses. In the worse case, the data may be parsed twice. By registering pushdown filters, the data can be filtered by each row parsed by the planner.
+
+
+### Using existing `.fai` indexes
+
+FASTA index files (`.fai`) are [auxillary data structures](https://www.htslib.org/doc/faidx.html) that allow byte-specific access to specific sequences. 
+
+The file is a tab delimited text file. There are five columns in FASTA fai index files, and six in FASTQ. These columns correspond to: Name (`= id` in our case), Length (`= length` in our case), Offset (the byte offset in the FASTA file), Linebases (number of bases on each line), Linewidth (number of bytes in each line), and Qualoffset (the byte offset of the first quality score, FASTQ only).
+
+For wide files, this can save an enormous amount of unecessary parsing, especially in cases where the `id` of interest is known ahead of time. 
+
+One issue you may have noticed, is that the byte offsets provided corespond to the _sequence_ offset, not the start of the sequence. To get the most out of fai indexes, `sqlite-fastx` will seek to the sequence's byte offset, and traverse backwards until the record delimiter is encountered (`>` or `@`). This allows `sqlite-fastx` to properly ingest the entire record.
+
+### Sequence Contains using `memchr`
 
 In local testing (M2 Macbook Pro) using `memchr` for raw substring search, I found a ~35x speed up on a 10k bp dataset. This translated to about a 5x speedup at query time (I/O, parsing costs lower some of the gains).
 
@@ -265,5 +280,3 @@ SequenceOp::Contains => memchr::memmem::find(&val, self.pattern.as_bytes()).is_s
 ```
 
 `memchr` improves scanning by leveraging hardware to accelerate scans. One technique is SIMD (Single Instruction, Multiple Data), which allows multiple bytes (16, 32, 64, etc.) to be compared at once.
-
-#### Pushdown Filters
