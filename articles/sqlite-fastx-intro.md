@@ -280,3 +280,58 @@ SequenceOp::Contains => memchr::memmem::find(&val, self.pattern.as_bytes()).is_s
 ```
 
 `memchr` improves scanning by leveraging hardware to accelerate scans. One technique is SIMD (Single Instruction, Multiple Data), which allows multiple bytes (16, 32, 64, etc.) to be compared at once.
+
+## Usage/Examples
+
+
+### Concatenating multiple sequence alignments for downstream phylogenetic analyses
+
+Lets say we ran a [muscle](https://github.com/rcedgar/muscle) alignment for a multi-locus phylogenetic analysis. For example, assume each file may look like this:
+
+```txt
+## ITS
+>MF193884 Farid335
+TTCNGTAGGGTGAACCTGCGGAAGGATC...
+```
+
+```txt
+## LSU
+>MG026638 Farid335
+...
+```
+
+In this example, each ID corresponds to its NCBI GenBank No. Each description represents the original sample. 
+
+```sql
+## Create a virtual table for each aligned sequence
+CREATE VIRTUAL TABLE its using fasta('its.fasta');
+CREATE VIRTUAL TABLE lsu using fasta('lsu.fasta');
+CREATE VIRTUAL TABLE rpb1 using fasta('rpb1.fasta');
+CREATE VIRTUAL TABLE rpb2 using fasta('rpb2.fasta');
+CREATE VIRTUAL TABLE tef1 using fasta('tef1.fasta');
+
+## Write to `concat.fasta`
+.output concat.fa
+  WITH widths AS (
+      SELECT
+          (SELECT max(length(sequence)) FROM its) AS its_w,
+          (SELECT max(length(sequence)) FROM lsu) AS lsu_w,
+          (SELECT max(length(sequence)) FROM rpb1 AS rpb1_w,
+          (SELECT max(length(sequence)) FROM rpb2 AS rpb2_w,
+          (SELECT max(length(sequence)) FROM tef1 AS tef1_w
+  )
+  SELECT '>' || its.id || ' ' || its.description ||
+  char(10) ||
+      COALESCE(its.sequence,  gap(widths.its_w))  ||
+      COALESCE(lsu.sequence,  gap(widths.lsu_w))  ||
+      COALESCE(rpb1.sequence, gap(widths.rpb1_w)) ||
+      COALESCE(rpb2.sequence, gap(widths.rpb2_w)) ||
+      COALESCE(tef1.sequence, gap(widths.tef1_w))
+  FROM its
+  LEFT JOIN lsu  ON lsu.description  = its.description
+  LEFT JOIN rpb1 ON rpb1.description = its.description
+  LEFT JOIN rpb2 ON rpb2.description = its.description
+  LEFT JOIN tef1 ON tef1.description = its.description
+  CROSS JOIN widths;
+  .output stdout
+```
