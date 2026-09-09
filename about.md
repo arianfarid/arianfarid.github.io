@@ -52,31 +52,35 @@ Written in Rust, it uses virtual tables (via `sqlite3_ext`) to enable pushdown f
    Salas-Lizana R. et al. (incl. Farid A.) — *Mycologia*, 115(1), 2023.
    [doi:10.1080/00275514.2022.2148191](https://doi.org/10.1080/00275514.2022.2148191)
 
-2. **Sharpening plant taxonomy in South Florida: Baccharis and Melanthera (Asteraceae), Borreria and Chiococca (Rubiaceae), and Lantana (Verbenaceae)**
+2. **Investigations in the boletes (Boletaceae) of southeastern USA: four novel species and three novel combinations**
+   Farid A., Bolin J., Kudzma L., Franck A.R., Garey J.R. — *Mycosphere*, 12(1), 2021.
+   [doi:10.5943/mycosphere/12/1/12](https://doi.org/10.5943/mycosphere/12/1/12)
+
+3. **Sharpening plant taxonomy in South Florida: Baccharis and Melanthera (Asteraceae), Borreria and Chiococca (Rubiaceae), and Lantana (Verbenaceae)**
    Franck A.R., Gann G.D., Sadle J., Farid A. — *Phytologia*, 103(2), 2021.
    [phytologia.org](https://www.phytologia.org/uploads/2/3/4/2/23422706/103_2_29-68francksouthflorida26apr2020.pdf)
 
-3. **Expansion of the genus *Imleria* in North America to include *Imleria floridana*, sp. nov., and *Imleria pallida*, comb. nov.**
+4. **Expansion of the genus *Imleria* in North America to include *Imleria floridana*, sp. nov., and *Imleria pallida*, comb. nov.**
    Farid A., Franck A.R., Bolin J., Garey J.R. — *Mycologia*, 112(2), 2020.
    [doi:10.1080/00275514.2019.1685359](https://doi.org/10.1080/00275514.2019.1685359)
 
-4. **Fungal Planet description sheets: 1042–1111**
+5. **Fungal Planet description sheets: 1042–1111**
    Crous P.W. et al. (incl. Farid A.) — *Persoonia*, 44, 2020.
    [ncbi.nlm.nih.gov](https://pmc.ncbi.nlm.nih.gov/articles/PMC7567971/)
 
-5. **Many species of the Carnivora consume grass and other fibrous plant tissues**
+6. **Many species of the Carnivora consume grass and other fibrous plant tissues**
    Franck A.R., Farid A. — *Belgian Journal of Zoology*, 150, 2020.
    [belgianjournalofzoology.eu](https://belgianjournalofzoology.eu/BJZ/article/view/73)
 
-6. **Validation of two fungal names in *Marasmius* Fr. (Marasmiaceae)**
+7. **Validation of two fungal names in *Marasmius* Fr. (Marasmiaceae)**
    Guard F.E., Barrett M.D., Farid A. et al. — *Journal of Adelaide Botanic Gardens*, 33, 2019.
    [environment.sa.gov.au](https://data.environment.sa.gov.au/Content/Publications/JABG33P111_Guard.pdf)
 
-7. **Phylloporus and Phylloboletellus are no longer alone: *Phylloporopsis* gen. nov. (Boletaceae), a new smooth-spored lamellate genus to accommodate the American species *Phylloporus boletinoides***
+8. **Phylloporus and Phylloboletellus are no longer alone: *Phylloporopsis* gen. nov. (Boletaceae), a new smooth-spored lamellate genus to accommodate the American species *Phylloporus boletinoides***
    Farid A., Gelardi M., Angelini C. et al. — *Fungal Systematics and Evolution*, 2, 2018.
    [doi:10.3114/fuse.2018.02.10](https://doi.org/10.3114/fuse.2018.02.10)
 
-8. **Boletus rubricitrinus belongs in Pulchroboletus (Boletaceae)**
+9. **Boletus rubricitrinus belongs in Pulchroboletus (Boletaceae)**
    Farid A., Franck A.R., Garey J.R. — *Czech Mycology*, 69(2), 2017.
    [doi:10.33585/cmy.69204](https://doi.org/10.33585/cmy.69204)
 
