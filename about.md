@@ -72,7 +72,11 @@ Written in Rust, it uses virtual tables (via `sqlite3_ext`) to enable pushdown f
    Guard F.E., Barrett M.D., Farid A. et al. — *Journal of Adelaide Botanic Gardens*, 33, 2019.
    [environment.sa.gov.au](https://data.environment.sa.gov.au/Content/Publications/JABG33P111_Guard.pdf)
 
-7. **Boletus rubricitrinus belongs in Pulchroboletus (Boletaceae)**
+7. **Phylloporus and Phylloboletellus are no longer alone: *Phylloporopsis* gen. nov. (Boletaceae), a new smooth-spored lamellate genus to accommodate the American species *Phylloporus boletinoides***
+   Farid A., Gelardi M., Angelini C. et al. — *Fungal Systematics and Evolution*, 2, 2018.
+   [doi:10.3114/fuse.2018.02.10](https://doi.org/10.3114/fuse.2018.02.10)
+
+8. **Boletus rubricitrinus belongs in Pulchroboletus (Boletaceae)**
    Farid A., Franck A.R., Garey J.R. — *Czech Mycology*, 69(2), 2017.
    [doi:10.33585/cmy.69204](https://doi.org/10.33585/cmy.69204)
 
